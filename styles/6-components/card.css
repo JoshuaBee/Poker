@@ -1,0 +1,54 @@
+/*--------------------------------//
+//                                //
+//             Card              //
+//                                //
+//--------------------------------*/
+.card__container {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: repeat(13, 1fr);
+    padding: 1em 0;
+}
+
+.card {
+    display: flex;
+    position: relative;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.card::after {
+    background-color: #FFF;
+	opacity: 0;
+	transition: all .2s ease;
+	border-radius: 6px;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: "";
+}
+
+.card:hover::after {
+    background-color: grey;
+	opacity: 0.2;
+}
+
+.card[data-card-selected]::after {
+	opacity: 0.2;
+}
+
+.card[data-card-selected="player"]::after {
+    background-color: green;
+}
+
+.card[data-card-selected="community"]::after {
+    background-color: blue;
+}
+
+.card img {
+    width: 100%;
+}

@@ -1,0 +1,43 @@
+/*--------------------------------//
+//                                //
+//             Color              //
+//                                //
+//--------------------------------*/
+:root {
+	/*
+		Primary Color
+	*/
+	--color-primary: #F77F00;
+	--color-primary-text: #000;
+	
+	/*
+		Background
+	*/
+	--color-background: #F5F3F4;
+	--color-background-text: #000;
+
+	/*
+		Poker
+	*/
+	--color-position-early: red;
+	--color-position-middle: orange;
+	--color-position-late: green;
+	--color-marker-player: black;
+	--color-marker-player-active: white;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		/*
+			Primary Color
+		*/
+		--color-primary: #F77F00;
+		--color-primary-text: #FFF;
+		
+		/*
+			Background
+		*/
+		--color-background: #EEE;
+		--color-background-text: #000;
+	}
+}

@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<link rel="preconnect" href="https://www.google-analytics.com/" crossorigin>
+		<link rel="preconnect" href="https://font.gstatic.com/" crossorigin>
+
+		<title>Poker</title>
+		<meta charset="utf-8" />
+		<meta name="author" content="Joshua Bee" />
+		<meta name="description" content=":spades::hearts::clubs::diamonds: Poker analysis" />
+		<!-- Let browser know website is optimized for mobile -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="icon" type="image/png" href="images/logos/logo-192.png" />
+		<link rel="apple-touch-icon" href="images/logos/logo-192.png">
+		<link rel="canonical" href="https://poker.joshuabee.dev/" />
+
+		<!-- Progressive Web App -->
+		<meta name="theme-color" content="#F77F00" />
+		<link rel="manifest" href="manifest.json" />
+
+		<!-- Settings -->
+		<link href="styles/1-settings/color.css" rel="stylesheet" />
+		<link href="styles/1-settings/font.css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+		<!-- Generic -->
+		<link href="styles/3-generic/reset.css" rel="stylesheet" />
+
+		<!-- Elements -->
+		<link href="styles/4-elements/body.css" rel="stylesheet" />
+		<link href="styles/4-elements/main.css" rel="stylesheet" />
+		<link href="styles/4-elements/table.css" rel="stylesheet" />
+		
+		<!-- Components -->
+		<link href="styles/6-components/button.css" rel="stylesheet" />
+		<link href="styles/6-components/card.css" rel="stylesheet" />
+		<link href="styles/6-components/container.css" rel="stylesheet" />
+		<link href="styles/6-components/footer.css" rel="stylesheet" />
+		<link href="styles/6-components/settings.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		
+		<header>
+			<h1>Poker</h1>
+		</header>
+
+		<main>
+			<div class="container" data-contains="2">
+
+				<section class="settings">
+					<h2 class="section__title">Settings</h2>
+
+					<div>
+						<label for="opponents">Opponents</label>
+						<input id="opponents" type="number" value="10" step="1" min="1" />
+					</div>
+
+					<div>
+						<label for="position">Position</label>
+						<input id="position" type="number" value="1" step="1" min="1" />
+					</div>
+
+					<div>
+						<label for="blinds">Blinds</label>
+						<input id="blinds" type="number" value="10" step="1" min="1" />
+					</div>
+					
+					<div>
+						<label for="maximumRaises">Maximum Raises</label>
+						<input id="maximumRaises" type="number" value="3" step="1" min="1" />
+					</div>
+
+					<button id="setupButtonTrigger" type="button" class="button">
+						<span class="button__text">Setup</span>
+					</button>
+
+					<button id="runButtonTrigger" type="button" class="button">
+						<span class="button__text">Run</span>
+					</button>
+
+					<button id="clearButtonTrigger" type="button" class="button" data-style="secondary">
+						<span class="button__text">Clear</span>
+					</button>
+
+					<div id="message"></div>
+				</section>
+
+				<section class="card__container">
+
+					<div class="card" data-card-rank="TWO" data-card-suit="DIAMONDS">
+						<img src="images/icons/two-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="THREE" data-card-suit="DIAMONDS">
+						<img src="images/icons/three-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="FOUR" data-card-suit="DIAMONDS">
+						<img src="images/icons/four-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="FIVE" data-card-suit="DIAMONDS">
+						<img src="images/icons/five-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="SIX" data-card-suit="DIAMONDS">
+						<img src="images/icons/six-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="SEVEN" data-card-suit="DIAMONDS">
+						<img src="images/icons/seven-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="EIGHT" data-card-suit="DIAMONDS">
+						<img src="images/icons/eight-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="NINE" data-card-suit="DIAMONDS">
+						<img src="images/icons/nine-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="TEN" data-card-suit="DIAMONDS">
+						<img src="images/icons/ten-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="JACK" data-card-suit="DIAMONDS">
+						<img src="images/icons/jack-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="QUEEN" data-card-suit="DIAMONDS">
+						<img src="images/icons/queen-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="KING" data-card-suit="DIAMONDS">
+						<img src="images/icons/king-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="ACE" data-card-suit="DIAMONDS">
+						<img src="images/icons/ace-of-diamonds.svg" />
+					</div>
+					<div class="card" data-card-rank="TWO" data-card-suit="CLUBS">
+						<img src="images/icons/two-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="THREE" data-card-suit="CLUBS">
+						<img src="images/icons/three-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="FOUR" data-card-suit="CLUBS">
+						<img src="images/icons/four-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="FIVE" data-card-suit="CLUBS">
+						<img src="images/icons/five-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="SIX" data-card-suit="CLUBS">
+						<img src="images/icons/six-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="SEVEN" data-card-suit="CLUBS">
+						<img src="images/icons/seven-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="EIGHT" data-card-suit="CLUBS">
+						<img src="images/icons/eight-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="NINE" data-card-suit="CLUBS">
+						<img src="images/icons/nine-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="TEN" data-card-suit="CLUBS">
+						<img src="images/icons/ten-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="JACK" data-card-suit="CLUBS">
+						<img src="images/icons/jack-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="QUEEN" data-card-suit="CLUBS">
+						<img src="images/icons/queen-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="KING" data-card-suit="CLUBS">
+						<img src="images/icons/king-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="ACE" data-card-suit="CLUBS">
+						<img src="images/icons/ace-of-clubs.svg" />
+					</div>
+					<div class="card" data-card-rank="TWO" data-card-suit="HEARTS">
+						<img src="images/icons/two-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="THREE" data-card-suit="HEARTS">
+						<img src="images/icons/three-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="FOUR" data-card-suit="HEARTS">
+						<img src="images/icons/four-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="FIVE" data-card-suit="HEARTS">
+						<img src="images/icons/five-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="SIX" data-card-suit="HEARTS">
+						<img src="images/icons/six-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="SEVEN" data-card-suit="HEARTS">
+						<img src="images/icons/seven-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="EIGHT" data-card-suit="HEARTS">
+						<img src="images/icons/eight-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="NINE" data-card-suit="HEARTS">
+						<img src="images/icons/nine-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="TEN" data-card-suit="HEARTS">
+						<img src="images/icons/ten-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="JACK" data-card-suit="HEARTS">
+						<img src="images/icons/jack-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="QUEEN" data-card-suit="HEARTS">
+						<img src="images/icons/queen-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="KING" data-card-suit="HEARTS">
+						<img src="images/icons/king-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="ACE" data-card-suit="HEARTS">
+						<img src="images/icons/ace-of-hearts.svg" />
+					</div>
+					<div class="card" data-card-rank="TWO" data-card-suit="SPADES">
+						<img src="images/icons/two-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="THREE" data-card-suit="SPADES">
+						<img src="images/icons/three-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="FOUR" data-card-suit="SPADES">
+						<img src="images/icons/four-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="FIVE" data-card-suit="SPADES">
+						<img src="images/icons/five-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="SIX" data-card-suit="SPADES">
+						<img src="images/icons/six-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="SEVEN" data-card-suit="SPADES">
+						<img src="images/icons/seven-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="EIGHT" data-card-suit="SPADES">
+						<img src="images/icons/eight-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="NINE" data-card-suit="SPADES">
+						<img src="images/icons/nine-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="TEN" data-card-suit="SPADES">
+						<img src="images/icons/ten-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="JACK" data-card-suit="SPADES">
+						<img src="images/icons/jack-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="QUEEN" data-card-suit="SPADES">
+						<img src="images/icons/queen-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="KING" data-card-suit="SPADES">
+						<img src="images/icons/king-of-spades.svg" />
+					</div>
+					<div class="card" data-card-rank="ACE" data-card-suit="SPADES">
+						<img src="images/icons/ace-of-spades.svg" />
+					</div>
+
+				</section>
+			</div>
+
+			<div class="container" data-contains="1">
+
+				<section>
+					<h2 class="section__title">Players</h2>
+
+					<table>
+						<thead>
+							<tr>
+								<th scope="col">Position</th>
+								<th scope="col">Bet (£)</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+
+						<tbody id="player-list">
+						</tbody>
+					</table>
+				</section>
+			</div>
+
+			<div class="container" data-contains="1">
+				<section>
+					<h2 class="section__title">Results</h2>
+
+					<table class="results">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Pre-Flop</th>
+								<th scope="col">Flop</th>
+								<th scope="col">Turn</th>
+								<th scope="col">River</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<th scope="row">
+									Wins
+								</th>
+								<td id="pre-flop-wins" class="table-item" data-stage="PREFLOP" data-attribute="wins">
+
+								</td>
+								<td id="flop-wins" class="table-item" data-stage="FLOP" data-attribute="wins">
+
+								</td>
+								<td id="turn-wins" class="table-item" data-stage="TURN" data-attribute="wins">
+
+								</td>
+								<td id="river-wins" class="table-item" data-stage="RIVER" data-attribute="wins">
+
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									Draws
+								</th>
+								<td id="pre-flop-draws" class="table-item" data-stage="PREFLOP" data-attribute="draws">
+
+								</td>
+								<td id="flop-draws" class="table-item" data-stage="FLOP" data-attribute="draws">
+
+								</td>
+								<td id="turn-draws" class="table-item" data-stage="TURN" data-attribute="draws">
+
+								</td>
+								<td id="river-draws" class="table-item" data-stage="RIVER" data-attribute="draws">
+
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									Losses
+								</th>
+								<td id="pre-flop-losses" class="table-item" data-stage="PREFLOP" data-attribute="losses">
+
+								</td>
+								<td id="flop-losses" class="table-item" data-stage="FLOP" data-attribute="losses">
+
+								</td>
+								<td id="turn-losses" class="table-item" data-stage="TURN" data-attribute="losses">
+
+								</td>
+								<td id="river-losses" class="table-item" data-stage="RIVER" data-attribute="losses">
+
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									Not Lose (%)
+								</th>
+								<td id="pre-flop-not-lose-percentage" class="table-item" data-stage="PREFLOP" data-attribute="not-lose-percentage">
+
+								</td>
+								<td id="flop-not-lose-percentage" class="table-item" data-stage="FLOP" data-attribute="not-lose-percentage">
+
+								</td>
+								<td id="turn-not-lose-percentage" class="table-item" data-stage="TURN" data-attribute="not-lose-percentage">
+
+								</td>
+								<td id="river-not-lose-percentage" class="table-item" data-stage="RIVER" data-attribute="not-lose-percentage">
+
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									Time
+								</th>
+								<td id="pre-flop-time" class="table-item" data-stage="PREFLOP" data-attribute="time">
+
+								</td>
+								<td id="flop-time" class="table-item" data-stage="FLOP" data-attribute="time">
+
+								</td>
+								<td id="turn-time" class="table-item" data-stage="TURN" data-attribute="time">
+
+								</td>
+								<td id="river-time" class="table-item" data-stage="RIVER" data-attribute="time">
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</div>
+		</main>
+
+		<footer>
+			<a href="https://joshuabee.dev/" target="_blank" rel="noopener noreferrer" class="footer__branding" itemscope itemtype="https://schema.org/WebSite">
+				<picture>
+					<source srcset="images/logos/company-logo-192.svg" type="image/svg+xml">
+					<img src="images/logos/company-logo-192.png" alt="Company Logo" class="footer__logo" />
+				</picture>
+				<span class="footer__title">Joshua<br />Bee</span>
+			</a>
+
+			<button id="installButtonTrigger" type="button" class="button install-button" data-style="secondary" aria-hidden="true">
+				<span class="button__text">Install</span>
+			</button>
+		</footer>
+
+		<!-- Main Javascript -->
+		<script src="scripts/main.js"></script>
+		<script>
+			if ('serviceWorker' in navigator) {
+			  navigator.serviceWorker.register('/service-worker.js')
+			  .then(function(registration) {
+				console.log('Service worker registration successful, scope is:', registration.scope);
+			  })
+			  .catch(function(error) {
+				console.log('Service worker registration failed, error:', error);
+			  });
+			}
+		</script>
+	</body>
+</html>

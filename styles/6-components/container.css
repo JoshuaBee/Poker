@@ -1,0 +1,21 @@
+/*--------------------------------//
+//                                //
+//           Container            //
+//                                //
+//--------------------------------*/
+.container {
+	display: grid;
+	grid-gap: 2em;
+}
+
+.container[data-contains="1"] {
+	grid-template-columns: 1fr;
+}
+
+.container[data-contains="2"] {
+	grid-template-columns: 10% 1fr;
+}
+
+.container[data-contains="3"] {
+	grid-template-columns: repeat(3, 1fr);
+}
