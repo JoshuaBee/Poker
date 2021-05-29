@@ -50,9 +50,25 @@ const stages = {
 	PREFLOP: 1,
 	FLOP: 2,
 	TURN: 3,
-	RIVER: 4
+	RIVER: 4,
+	SHOWDOWN: 5
 };
 Object.freeze(stages);
+
+const positions = {
+	EARLY: 1,
+	MIDDLE: 2,
+	LATE: 3
+};
+Object.freeze(positions);
+
+const actions = {
+	FOLD: 1,
+	CHECK: 2,
+	CALL: 3,
+	RAISE: 4
+};
+Object.freeze(actions);
 
 
 
@@ -103,7 +119,7 @@ class Deck {
 
 	take(rank, suit) {
 		var card;
-		for(var i = 0; i < this.cards.length; i++) {
+		for (var i = 0; i < this.cards.length; i++) {
 			card = this.cards[i];
 			if (card.rank === rank && card.suit === suit) {
 				return this.takeByIndex(i);
@@ -147,10 +163,112 @@ class Score {
 	constructor(value, primaryCard, secondaryCard, tertiaryCard, quaternaryCard, quinaryCard) {
 		this.value = value;
 		this.primaryCard = primaryCard;
-		this.secondaryCard= secondaryCard;
+		this.secondaryCard = secondaryCard;
 		this.tertiaryCard = tertiaryCard;
 		this.quaternaryCard = quaternaryCard;
 		this.quinaryCard = quinaryCard;
+	}
+}
+
+class Player {
+	constructor() {
+		this.action = null;
+		this.position = 0;
+		this.positionName = '';
+		this.positionGroup = null;
+		this.active = false;
+		this.player = false;
+		this.stageBet = 0;
+		this.totalBet = 0;
+		this.showdown = false;
+		this.winner = false;
+	}
+
+	getAction() {
+		return this.action;
+	}
+
+	setAction(action) {
+		this.action = action;
+	}
+
+	getPosition() {
+		return this.position;
+	}
+
+	setPosition(position) {
+		this.position = position;
+	}
+
+	getPositionName() {
+		return this.positionName;
+	}
+
+	setPositionName(positionName) {
+		this.positionName = positionName;
+	}
+
+	getPositionGroup() {
+		return this.positionGroup;
+	}
+
+	setPositionGroup(positionGroup) {
+		this.positionGroup = positionGroup;
+	}
+
+	isActive() {
+		return this.active;
+	}
+
+	setActive(active) {
+		this.active = active;
+	}
+
+	isPlayer() {
+		return this.player;
+	}
+
+	setPlayer(player) {
+		this.player = player;
+	}
+
+	addBet(bet) {
+		this.stageBet += bet;
+		this.totalBet += bet;
+	}
+
+	clearStageBet() {
+		this.stageBet = 0;
+	}
+
+	getStageBet() {
+		return this.stageBet;
+	}
+
+	getTotalBet() {
+		return this.totalBet;
+	}
+
+	matchBet(bet) {
+		var incrementalBet = bet - this.stageBet
+		this.stageBet += incrementalBet;
+		this.totalBet += incrementalBet;
+	}
+
+	isShowdown() {
+		return this.showdown;
+	}
+
+	setShowdown(showdown) {
+		this.showdown = showdown;
+	}
+
+	isWinner() {
+		return this.winner;
+	}
+
+	setWinner(winner) {
+		this.winner = winner;
 	}
 }
 
@@ -159,6 +277,7 @@ class Score {
 // Constants
 
 const deck = new Deck();
+const debug = false;
 
 
 
@@ -174,7 +293,11 @@ var losses = 0;
 var opponents = 1;
 var stage;
 var opponents;
+var players = [];
 var playerPosition;
+var blinds;
+var stageBet = 0;
+var stageBets = false;
 var maximumRaises;
 
 
@@ -187,6 +310,7 @@ const $cards = document.querySelectorAll('.card');
 // Constants
 const $opponents = document.querySelector('#opponents');
 const $position = document.querySelector('#position');
+const $blinds = document.querySelector('#blinds');
 const $maximumRaises = document.querySelector('#maximumRaises');
 
 // Buttons
@@ -219,7 +343,7 @@ const $tableRiverTime = document.querySelector('.table-item[data-stage="RIVER"][
 
 
 
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function (event) {
 	bindEvents();
 });
 
@@ -229,16 +353,25 @@ function bindEvents() {
 	$cards.forEach($card => {
 		$card.addEventListener('click', () => {
 			var selected = $card.dataset.cardSelected;
-			
-			switch(selected) {
-				case "player":
-					$card.dataset.cardSelected = 'community';
-					break;
-				case "community":
-					delete $card.dataset.cardSelected;
-					break;
-				default:
-					$card.dataset.cardSelected = 'player';
+
+			if (selected === 'player') {
+				delete $card.dataset.cardSelected;
+			}
+			else {
+				$card.dataset.cardSelected = 'player';
+			}
+		});
+
+		/* Right Click Event */
+		$card.addEventListener('contextmenu', (event) => {
+			event.preventDefault();
+			var selected = $card.dataset.cardSelected;
+
+			if (selected === 'community') {
+				delete $card.dataset.cardSelected;
+			}
+			else {
+				$card.dataset.cardSelected = 'community';
 			}
 		});
 	});
@@ -258,9 +391,13 @@ function setup() {
 	opponents = Number($opponents.value);
 	playerPosition = Number($position.value);
 	raises = 0;
+	blinds = Number($blinds.value);
+	stageBet = 2 * blinds;
+	stageBets = true;
 	maximumRaises = Number($maximumRaises.value);
 
-	generatePlayerList();
+	createPlayers();
+	createPlayersTable();
 }
 
 
@@ -308,13 +445,18 @@ function run() {
 	$playersCards.forEach($playersCard => {
 		holeCards.push(...deck.take($playersCard.dataset.cardRank, $playersCard.dataset.cardSuit));
 	});
-	console.log('Hole Cards', holeCards);
+	holeCards.sort(compareCards);
+	if (debug) {
+		console.log('Hole Cards', holeCards);
+	}
 
 	// Get Community Cards from Deck
 	$communityCards.forEach($communityCard => {
 		communityCards.push(...deck.take($communityCard.dataset.cardRank, $communityCard.dataset.cardSuit));
 	});
-	console.log('Community Cards', communityCards);
+	if (debug) {
+		console.log('Community Cards', communityCards);
+	}
 
 	// Flop
 	// TODO Make sure I do not want to include burnt cards
@@ -339,53 +481,45 @@ function run() {
 	possibleCommunityCards = [...deck.cards];
 
 	// Need to run different functions depending on how many community cards have been drawn.
-	switch (communityCards.length) {
+	switch (stage) {
 		// If no community cards have been drawn, then we need to draw 5 more.
-		case 0:
-			// TODO
-			// Takes too long to calculate what to do with no community cards. Instead use a hardcoded list of starting hand strengths.
-			stage = stages.PREFLOP;
-			/*for (var communityCard1Index = 0; communityCard1Index < possibleCommunityCards.length - 4; communityCard1Index++) {
-				// 
-				communityCard1 = possibleCommunityCards[communityCard1Index];
-				console.log(communityCard1);
+		case stages.PREFLOP:
+			var score = calculateChenScore();
+			var positionGroup = getPositionGroup(playerPosition, opponents);
 
-				for (var communityCard2Index = communityCard1Index + 1; communityCard2Index < possibleCommunityCards.length - 3; communityCard2Index++) {
-					// 
-					communityCard2 = possibleCommunityCards[communityCard2Index];
-
-					for (var communityCard3Index = communityCard2Index + 1; communityCard3Index < possibleCommunityCards.length - 2; communityCard3Index++) {
-						// 
-						communityCard3 = possibleCommunityCards[communityCard3Index];
-
-						for (var communityCard4Index = communityCard3Index + 1; communityCard4Index < possibleCommunityCards.length - 1; communityCard4Index++) {
-							// 
-							communityCard4 = possibleCommunityCards[communityCard4Index];
-
-							for (var communityCard5Index = communityCard4Index + 1; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
-								// 
-								communityCard5 = possibleCommunityCards[communityCard5Index];
-
-								// Remove the community cards from the possible opponents cards.
-								possibleOpponentsCards = [...deck.cards];
-								possibleOpponentsCards.splice(communityCard1Index, 1);
-								possibleOpponentsCards.splice(communityCard2Index - 1, 1);
-								possibleOpponentsCards.splice(communityCard3Index - 2, 1);
-								possibleOpponentsCards.splice(communityCard4Index - 3, 1);
-								possibleOpponentsCards.splice(communityCard5Index - 4, 1);
-
-								communityCardsTemp = [...communityCards, communityCard1, communityCard2, communityCard3, communityCard4, communityCard5];
-
-								calculate();
-							}
-						}
+			switch (positionGroup) {
+				case positions.EARLY:
+					if (score >= 6.5) {
+						//Play
+						var button = document.querySelector('[data-player="true"] [data-action="call"]');
+						button.style.backgroundColor = 'green';
 					}
-				}
-			}*/
+					else {
+						// Fold
+						var button = document.querySelector('[data-player="true"] [data-action="fold"]');
+						button.style.backgroundColor = 'green';
+					}
+					break;
+				case positions.MIDDLE:
+					if (score >= 6) {
+						//Play
+					}
+					else {
+						// Fold
+					}
+					break;
+				case positions.LATE:
+					if (score >= 5.5) {
+						//Play
+					}
+					else {
+						// Fold
+					}
+					break;
+			}
 			break;
 		// If 3 community cards have been drawn, then we need to draw 2 more.
-		case 3:
-			stage = stages.FLOP;
+		case stages.FLOP:
 			for (var communityCard4Index = 0; communityCard4Index < possibleCommunityCards.length - 1; communityCard4Index++) {
 				// 
 				communityCard4 = possibleCommunityCards[communityCard4Index];
@@ -406,8 +540,7 @@ function run() {
 			}
 			break;
 		// If 4 community cards have been drawn, then we need to draw 1 more.
-		case 4:
-			stage = stages.TURN;
+		case stages.TURN:
 			for (var communityCard5Index = 0; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
 				// 
 				communityCard5 = possibleCommunityCards[communityCard5Index];
@@ -422,9 +555,7 @@ function run() {
 			}
 			break;
 		// If all 5 community cards have been drawn, then we have all the cards we need.
-		case 5:
-			stage = stages.RIVER;
-
+		case stages.RIVER:
 			// Remove the community cards from the possible opponents cards.
 			possibleOpponentsCards = [...deck.cards];
 
@@ -440,105 +571,135 @@ function run() {
 	total = wins + draws + losses;
 	no_lose_decimal = (wins + draws) / total;
 	no_lose_decimal_all = Math.pow((wins + draws) / total, opponents);
-	
-	console.log('Wins:', wins);
-	console.log('Draws:', draws);
-	console.log('Losses:', losses);
-	console.log('Total:', total);
-	console.log('Not Lose Percentage - 1 Opponent', `${ (100 * no_lose_decimal).toFixed(2) }%`);
-	console.log('Not Lose Percentage - All Opponents', `${ (100 * no_lose_decimal_all).toFixed(2) }%`);
-	console.log('Time:', `${ Date.now() - start }ms`);
+
+	if (debug) {
+		console.log('Wins:', wins);
+		console.log('Draws:', draws);
+		console.log('Losses:', losses);
+		console.log('Total:', total);
+		console.log('Not Lose Percentage - 1 Opponent', `${(100 * no_lose_decimal).toFixed(2)}%`);
+		console.log('Not Lose Percentage - All Opponents', `${(100 * no_lose_decimal_all).toFixed(2)}%`);
+		console.log('Time:', `${Date.now() - start}ms`);
+	}
+
+	var activeOpponents = players.filter(player => player.getAction() !== actions.FOLD && !player.isPlayer());
 
 	// Update table
 	switch (stage) {
 		case stages.PREFLOP:
-			$tablePreFlopWins.innerHTML = `${ wins } (${ (100 * wins / total).toFixed(0) }%)`;
-			$tablePreFlopDraws.innerHTML = `${ draws } (${ (100 * draws / total).toFixed(0) }%)`;
-			$tablePreFlopLosses.innerHTML = `${ losses } (${ (100 * losses / total).toFixed(0) }%)`;
-			$tablePreFlopNotLosePercentage.innerHTML = `${ (100 * Math.pow((wins + draws) / total, opponents)).toFixed(2) }%`;
-			$tablePreFlopTime.innerHTML = `${ Date.now() - start }ms`;
+			$tablePreFlopWins.innerHTML = score;
+			$tablePreFlopTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 		case stages.FLOP:
-			$tableFlopWins.innerHTML = `${ wins } (${ (100 * wins / total).toFixed(0) }%)`;
-			$tableFlopDraws.innerHTML = `${ draws } (${ (100 * draws / total).toFixed(0) }%)`;
-			$tableFlopLosses.innerHTML = `${ losses } (${ (100 * losses / total).toFixed(0) }%)`;
-			$tableFlopNotLosePercentage.innerHTML = `${ (100 * Math.pow((wins + draws) / total, opponents)).toFixed(2) }%`;
-			$tableFlopTime.innerHTML = `${ Date.now() - start }ms`;
+			$tableFlopWins.innerHTML = `${wins} (${(100 * wins / total).toFixed(0)}%)`;
+			$tableFlopDraws.innerHTML = `${draws} (${(100 * draws / total).toFixed(0)}%)`;
+			$tableFlopLosses.innerHTML = `${losses} (${(100 * losses / total).toFixed(0)}%)`;
+			$tableFlopNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + draws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableFlopTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 		case stages.TURN:
-			$tableTurnWins.innerHTML = `${ wins } (${ (100 * wins / total).toFixed(0) }%)`;
-			$tableTurnDraws.innerHTML = `${ draws } (${ (100 * draws / total).toFixed(0) }%)`;
-			$tableTurnLosses.innerHTML = `${ losses } (${ (100 * losses / total).toFixed(0) }%)`;
-			$tableTurnNotLosePercentage.innerHTML = `${ (100 * Math.pow((wins + draws) / total, opponents)).toFixed(2) }%`;
-			$tableTurnTime.innerHTML = `${ Date.now() - start }ms`;
+			$tableTurnWins.innerHTML = `${wins} (${(100 * wins / total).toFixed(0)}%)`;
+			$tableTurnDraws.innerHTML = `${draws} (${(100 * draws / total).toFixed(0)}%)`;
+			$tableTurnLosses.innerHTML = `${losses} (${(100 * losses / total).toFixed(0)}%)`;
+			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + draws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableTurnTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 		case stages.RIVER:
-			$tableRiverWins.innerHTML = `${ wins } (${ (100 * wins / total).toFixed(0) }%)`;
-			$tableRiverDraws.innerHTML = `${ draws } (${ (100 * draws / total).toFixed(0) }%)`;
-			$tableRiverLosses.innerHTML = `${ losses } (${ (100 * losses / total).toFixed(0) }%)`;
-			$tableRiverNotLosePercentage.innerHTML = `${ (100 * Math.pow((wins + draws) / total, opponents)).toFixed(2) }%`;
-			$tableRiverTime.innerHTML = `${ Date.now() - start }ms`;
+			$tableRiverWins.innerHTML = `${wins} (${(100 * wins / total).toFixed(0)}%)`;
+			$tableRiverDraws.innerHTML = `${draws} (${(100 * draws / total).toFixed(0)}%)`;
+			$tableRiverLosses.innerHTML = `${losses} (${(100 * losses / total).toFixed(0)}%)`;
+			$tableRiverNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + draws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableRiverTime.innerHTML = `${Date.now() - start}ms`;
 			break;
+	}
+
+	scrollTo(document.querySelector('#players-section'));
+}
+
+function getPositionName(position, opponents) {
+	switch (position) {
+		case 1:
+			return 'Small Blind';
+		case 2:
+			return 'Big Blind';
+		case 3:
+			return 'Under the Gun';
+		case opponents - 1:
+			return 'Cut-Off';
+		case opponents:
+			return 'Button';
+	}
+
+	return '';
+}
+
+function getPositionGroup(position, opponents) {
+	if (position <= Math.floor(opponents / 3)) {
+		return positions.EARLY;
+	}
+
+	if (position > Math.ceil(2 * opponents / 3)) {
+		return positions.LATE;
+	}
+
+	return positions.MIDDLE;
+}
+
+function createPlayers() {
+	players = [];
+
+	for (var position = 1; position <= opponents; position++) {
+		var player = new Player();
+		player.setPosition(position);
+
+		player.setPositionName(getPositionName(position, opponents));
+		player.setPositionGroup(getPositionGroup(position, opponents));
+
+		player.setPlayer(position === playerPosition);
+		player.setActive(position === 3);
+
+		if (position === 1) {
+			player.addBet(blinds);
+		}
+		else if (position === 2) {
+			player.addBet(2 * blinds);
+		}
+
+		players.push(player);
 	}
 }
 
-function generatePlayerList() {
-	for (var position = 1; position <= opponents; position++) {
-		var positionName = '';
-		var positionGroup = 'middle';
-		if (position === 1) {
-			positionName = 'Small Blind';
-			positionGroup = 'early';
-		}
-		else if (position === 2) {
-			positionName = 'Big Blind';
-			positionGroup = 'early';
-		}
-		else if (position === 3) {
-			positionName = 'Under the Gun';
-			positionGroup = 'early';
-		}
-		else if (position === Number($opponents.value) - 2) {
-			positionGroup = 'late';
-		}
-		else if (position === Number($opponents.value) - 1) {
-			positionName = 'Cut-Off';
-			positionGroup = 'late';
-		}
-		else if (position === Number($opponents.value)) {
-			positionName = 'Button';
-			positionGroup = 'late';
-		}
-
-		var isPlayer = position === playerPosition;
-		var isActive = position === 3;
-
-		var bet = 0;
-		if (position === 1) {
-			bet = 10;
-		}
-		else if (position === 2) {
-			bet = 20;
-		}
-
+function createPlayersTable() {
+	players.forEach(player => {
 		// Create the row
 		var tableRow = document.createElement('tr');
-		tableRow.dataset.active = isActive;
-		tableRow.dataset.player = isPlayer;
-		tableRow.dataset.position = position;
-		tableRow.dataset.positionGroup = positionGroup;
+		tableRow.dataset.active = player.isActive();
+		tableRow.dataset.player = player.isPlayer();
+		tableRow.dataset.position = player.getPosition();
+		tableRow.dataset.positionGroup = player.getPositionGroup();
+		if (player.getAction() === actions.FOLD) {
+			tableRow.dataset.folded = true;
+		}
 
 		// Create the row header
 		var tableRowHeading = document.createElement('th');
-		tableRowHeading.innerHTML = `${ position } ${ positionName }`;
+		tableRowHeading.innerHTML = `${ player.getPosition() } ${ player.getPositionName() }`;
 		tableRowHeading.scope = 'row';
 		tableRow.appendChild(tableRowHeading);
 
-		// Create the Bet cell
-		var betCell = document.createElement('td');
-		betCell.classList.add('table-item');
-		betCell.innerHTML = bet;
-		tableRow.appendChild(betCell);
+		// Create the Stage Bet cell
+		var stageBetCell = document.createElement('td');
+		stageBetCell.classList.add('table-item');
+		stageBetCell.dataset.stageBet = player.getStageBet();
+		stageBetCell.innerHTML = player.getStageBet();
+		tableRow.appendChild(stageBetCell);
+
+		// Create the Total Bet cell
+		var totalBetCell = document.createElement('td');
+		totalBetCell.classList.add('table-item');
+		totalBetCell.dataset.totalBet = player.getTotalBet();
+		totalBetCell.innerHTML = player.getTotalBet();
+		tableRow.appendChild(totalBetCell);
 
 		// Create the actions cell
 		var tableRowCell = document.createElement('td');
@@ -547,56 +708,225 @@ function generatePlayerList() {
 		// Create the fold button
 		var foldButton = document.createElement('button');
 		foldButton.classList.add('button');
-		foldButton.disabled = !isActive;
+		foldButton.dataset.action = 'fold';
+		foldButton.disabled = !player.isActive();
 		foldButton.innerHTML = 'Fold';
-		foldButton.addEventListener('click', fold);
+		foldButton.addEventListener('click', () => {
+			fold(player);
+		});
 		tableRowCell.appendChild(foldButton);
 
 		// Create the check button
 		var checkButton = document.createElement('button');
 		checkButton.classList.add('button');
-		checkButton.disabled = !isActive || stage === stages.PREFLOP;
+		checkButton.dataset.action = 'check';
+		checkButton.disabled = !player.isActive() || stage === stages.PREFLOP;
 		checkButton.innerHTML = 'Check';
+		checkButton.addEventListener('click', () => {
+			check(player);
+		});
 		tableRowCell.appendChild(checkButton);
 
 		// Create the call button
 		var callButton = document.createElement('button');
 		callButton.classList.add('button');
-		callButton.disabled = !isActive;
+		callButton.dataset.action = 'call';
+		callButton.disabled = !player.isActive();
 		callButton.innerHTML = 'Call';
+		callButton.addEventListener('click', () => {
+			call(player);
+		});
 		tableRowCell.appendChild(callButton);
 
 		// Create the raise button
 		var raiseButton = document.createElement('button');
 		raiseButton.classList.add('button');
-		raiseButton.disabled = !isActive || raises === maximumRaises;
+		raiseButton.dataset.action = 'raise';
+		raiseButton.disabled = !player.isActive() || raises === maximumRaises;
 		raiseButton.innerHTML = 'Raise';
+		raiseButton.addEventListener('click', () => {
+			raise(player);
+		});
 		tableRowCell.appendChild(raiseButton);
+
+		// Create the winner button
+		var winnerButton = document.createElement('button');
+		winnerButton.classList.add('button');
+		winnerButton.dataset.action = 'winner';
+		winnerButton.disabled = !player.isShowdown();
+		winnerButton.innerHTML = 'Winner';
+		winnerButton.addEventListener('click', () => {
+			winner(player);
+		});
+		tableRowCell.appendChild(winnerButton);
 
 		tableRow.appendChild(tableRowCell);
 
 		$playerList.appendChild(tableRow);
-	}
+	});
 }
 
-function fold(e) {
-	var target = e.target;
-	const player = target.parentElement.parentElement;
+function updatePlayersTable(player) {
+	var tableRow = document.querySelector(`[data-position="${ player.getPosition() }"]`);
+	tableRow.dataset.active = player.isActive();
+	tableRow.dataset.player = player.isPlayer();
+	if (player.getAction() === actions.FOLD) {
+		tableRow.dataset.folded = true;
+	}
+	if (player.isWinner()) {
+		tableRow.dataset.winner = true;
+	}
+	
+	var stageBetCell = tableRow.querySelector('[data-stage-bet]');
+	stageBetCell.dataset.bet = player.getStageBet();
+	stageBetCell.innerHTML = player.getStageBet();
+	
+	var totalBetCell = tableRow.querySelector('[data-total-bet]');
+	totalBetCell.dataset.bet = player.getTotalBet();
+	totalBetCell.innerHTML = player.getTotalBet();
 
-	const active = player.dataset.active;
-	const position = player.dataset.position;
+	var foldButton = tableRow.querySelector('[data-action="fold"]');
+	foldButton.disabled = !player.isActive() || (player.getAction() === actions.FOLD) || player.isShowdown();
 
-	if (!active) {
+	var checkButton = tableRow.querySelector('[data-action="check"]');
+	checkButton.disabled = !player.isActive() || (player.getAction() === actions.FOLD) || player.isShowdown() || (player.getStageBet() !== stageBet && stageBets);
+
+	var callButton = tableRow.querySelector('[data-action="call"]');
+	callButton.disabled = !player.isActive() || (player.getAction() === actions.FOLD) || player.isShowdown() || player.getStageBet() === stageBet;
+
+	var raiseButton = tableRow.querySelector('[data-action="raise"]');
+	raiseButton.disabled = !player.isActive() || (player.getAction() === actions.FOLD) || player.isShowdown() || raises === maximumRaises;
+
+	var winnerButton = tableRow.querySelector('[data-action="winner"]');
+	winnerButton.disabled = !player.isShowdown();
+}
+
+function fold(player) {
+	if (!player.isActive()) {
 		return;
 	}
 
-	player.dataset.folded = true;
+	player.setActive(false);
+	player.setAction(actions.FOLD);
+	updatePlayersTable(player);
 
-	nextPlayer();
+	nextPlayer(player);
 }
 
-function nextPlayer() {
+function check(player) {
+	if (!player.isActive()) {
+		return;
+	}
 
+	player.setActive(false);
+	player.setAction(actions.CHECK);
+	updatePlayersTable(player);
+
+	nextPlayer(player);
+}
+
+function call(player) {
+	if (!player.isActive()) {
+		return;
+	}
+
+	player.setActive(false);
+	player.setAction(actions.CALL);
+	player.matchBet(stageBet);
+	updatePlayersTable(player);
+
+	stageBets = true;
+
+	nextPlayer(player);
+}
+
+function raise(player) {
+	if (!player.isActive()) {
+		return;
+	}
+
+	raises++;
+	stageBet += blinds;
+	player.setActive(false);
+	player.setAction(actions.RAISE);
+	player.matchBet(stageBet);
+	updatePlayersTable(player);
+
+	stageBets = true;
+
+	nextPlayer(player);
+}
+
+function winner(player) {
+	player.setWinner(true);
+	updatePlayersTable(player);
+}
+
+function nextPlayer(currentPlayer) {
+	var availablePlayers = players.filter(player => player.getAction() !== actions.FOLD);
+	if (availablePlayers.length == 1) {
+		winner(availablePlayers[0]);
+		return;
+	}
+
+	// Check if the stage has finished.
+	var playersLeft = availablePlayers.filter(player => player.getAction() === null || player.getStageBet() < stageBet);
+	if (playersLeft.length === 0) {
+		nextStage();
+		return;
+	}
+
+	var playersChecked = availablePlayers.filter(player => player.getAction() === actions.CHECK);
+	if (playersChecked.length === availablePlayers.length) {
+		nextStage();
+		return;
+	}
+
+	var nextPlayer;
+
+	// Players AFTER current active player.
+	var nextPlayers = availablePlayers.filter(player => player.position > currentPlayer.position);
+	if (nextPlayers.length > 0) {
+		nextPlayer = nextPlayers[0];
+	}
+	else {
+		nextPlayer = availablePlayers[0];
+	}
+
+	nextPlayer.setActive(true);
+	updatePlayersTable(nextPlayer);
+}
+
+function nextStage() {
+	stage = stage + 1;
+	if (stage == stages.SHOWDOWN) {
+		showdown();
+	}
+
+	stageBet = 2 * blinds;
+	stageBets = false;
+
+	var availablePlayers = players.filter(player => player.getAction() !== actions.FOLD);
+	var startingPlayer = availablePlayers[0];
+
+	availablePlayers.forEach(player => {
+		player.setAction(null);
+		player.setActive(player === startingPlayer);
+		player.clearStageBet();
+
+		updatePlayersTable(player);
+	});
+
+	scrollTo(document.querySelector('#cards-section'));
+}
+
+function showdown() {
+	var availablePlayers = players.filter(player => player.getAction() !== actions.FOLD);
+	availablePlayers.forEach(player => {
+		player.setShowdown(true);
+
+		updatePlayersTable(player);
+	});
 }
 
 function clear() {
@@ -661,6 +991,75 @@ function calculate() {
 
 		}
 	}
+}
+
+// https://en.wikipedia.org/wiki/Texas_hold_%27em_starting_hands#Chen_formula
+function calculateChenScore() {
+	var score = 0;
+
+	// Based on the highest card, assign points as follows:
+	// Ace = 10 points, K = 8 points, Q = 7 points, J = 6 points.
+	// 10 through 2, half of face value (10 = 5 points, 9 = 4.5 points, etc.)
+	switch (ranks[holeCards[1].rank]) {
+		case ranks.ACE:
+			score = 10;
+			break;
+		case ranks.KING:
+			score = 8;
+			break;
+		case ranks.QUEEN:
+			score = 7;
+			break;
+		case ranks.JACK:
+			score = 6;
+			break;
+		default:
+			score = (Number(ranks[holeCards[1].rank]) + 1) / 2;
+	}
+
+	// For pairs...
+	if (holeCards[0].rank === holeCards[1].rank) {
+		//  Multiply the points by 2 (AA=20, KK=16, etc.), with a minimum of 5 points for any pair.
+		score = Math.max(2 * score, 5);
+
+		// 55 is given an extra point.
+		if (ranks[holeCards[1].rank] === ranks.FIVE) {
+			score += 1;
+		}
+	}
+
+	// Add 2 points for suited cards.
+	if (holeCards[0].suit === holeCards[1].suit) {
+		score += 2;
+	}
+
+	var gap = Number(ranks[holeCards[1].rank]) - Number(ranks[holeCards[0].rank]);
+	switch (gap) {
+		case 2:
+			// Subtract 1 point for 1 gappers (AQ, J9).
+			score -= 1;
+			break;
+		case 3:
+			// 2 points for 2 gappers (J8, AJ).
+			score -= 2;
+			break;
+		case 4:
+			// 4 points for 3 gappers (J7, 73).
+			score -= 4;
+			break;
+	}
+
+	// 5 points for larger gappers, including A2 A3 A4.
+	if (gap >= 5) {
+		score -= 5;
+	}
+
+	//Add an extra point if connected or 1-gap and your highest card is lower than Q
+	if ((gap === 1 || gap === 2) && ranks[holeCards[1].rank] < ranks.QUEEN) {
+		score += 1;
+	}
+
+	return score;
 }
 
 function getMaximumScore(hands) {
@@ -960,7 +1359,7 @@ function compareScore(score1, score2) {
 			}
 
 			// Compare ranks of secondary cards
-			if  (score1.secondaryCard > score2.secondaryCard) {
+			if (score1.secondaryCard > score2.secondaryCard) {
 				return results.HAND_1_WIN;
 			}
 			else if (score1.secondaryCard < score2.secondaryCard) {
@@ -971,9 +1370,9 @@ function compareScore(score1, score2) {
 					//throw 'Draw';
 					return results.DRAW;
 				}
-	
+
 				// Compare ranks of teriary cards
-				if  (score1.tertiaryCard > score2.tertiaryCard) {
+				if (score1.tertiaryCard > score2.tertiaryCard) {
 					return results.HAND_1_WIN;
 				}
 				else if (score1.tertiaryCard < score2.tertiaryCard) {
@@ -984,9 +1383,9 @@ function compareScore(score1, score2) {
 						//throw 'Draw';
 						return results.DRAW;
 					}
-		
+
 					// Compare ranks of quaternary cards
-					if  (score1.quaternaryCard > score2.quaternaryCard) {
+					if (score1.quaternaryCard > score2.quaternaryCard) {
 						return results.HAND_1_WIN;
 					}
 					else if (score1.quaternaryCard < score2.quaternaryCard) {
@@ -997,9 +1396,9 @@ function compareScore(score1, score2) {
 							//throw 'Draw';
 							return results.DRAW;
 						}
-			
+
 						// Compare ranks of quinary cards
-						if  (score1.quinaryCard > score2.quinaryCard) {
+						if (score1.quinaryCard > score2.quinaryCard) {
 							return results.HAND_1_WIN;
 						}
 						else if (score1.quinaryCard < score2.quinaryCard) {
@@ -1017,6 +1416,14 @@ function compareScore(score1, score2) {
 
 	//throw 'Draw';
 	return results.DRAW;
+}
+
+function scrollTo(el) {
+	el.scrollIntoView(
+		{
+			behavior: "smooth"
+		}
+	);
 }
 
 

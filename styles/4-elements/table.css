@@ -22,15 +22,15 @@ th {
 	font-weight: bold;
 }
 
-[data-position-group="early"] th {
+[data-position-group="1"] th {
 	background-color: var(--color-position-early);
 }
 
-[data-position-group="middle"] th {
+[data-position-group="2"] th {
 	background-color: var(--color-position-middle);
 }
 
-[data-position-group="late"] th {
+[data-position-group="3"] th {
 	background-color: var(--color-position-late);
 }
 
@@ -58,6 +58,11 @@ th {
 
 [data-folded],
 [data-folded="true"] {
-	background-color: lightyellow;
+	background-color: lightcoral;
 	text-decoration: line-through;
+}
+
+[data-winner],
+[data-winner="true"] {
+	background-color: lightgreen;
 }
