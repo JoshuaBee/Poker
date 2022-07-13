@@ -531,6 +531,8 @@ function run() {
 					}
 					break;
 			}
+
+			postCalculate();
 			break;
 		// If 3 community cards have been drawn, then we need to draw 2 more.
 		case stages.FLOP:
