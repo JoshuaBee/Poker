@@ -300,6 +300,7 @@ var stageBet = 0;
 var stageBets = false;
 var maximumRaises;
 var startTime;
+var chenScore = 0;
 
 // TODO: Remove
 var getScoreTimer = 0;
@@ -488,12 +489,12 @@ function run() {
 	switch (stage) {
 		// If no community cards have been drawn, then we need to draw 5 more.
 		case stages.PREFLOP:
-			var score = calculateChenScore();
+			chenScore = calculateChenScore();
 			var positionGroup = getPositionGroup(playerPosition, opponents);
 
 			switch (positionGroup) {
 				case positions.EARLY:
-					if (score >= 6.5) {
+					if (chenScore >= 6.5) {
 						// Play
 						// TODO: Play is either Check or Call.
 						var button = document.querySelector('[data-player="true"] [data-action="call"]');
@@ -506,7 +507,7 @@ function run() {
 					}
 					break;
 				case positions.MIDDLE:
-					if (score >= 6) {
+					if (chenScore >= 6) {
 						// Play
 						// TODO: Play is either Check or Call.
 						var button = document.querySelector('[data-player="true"] [data-action="call"]');
@@ -519,7 +520,7 @@ function run() {
 					}
 					break;
 				case positions.LATE:
-					if (score >= 5.5) {
+					if (chenScore >= 5.5) {
 						// Play
 						// TODO: Play is either Check or Call.
 						var button = document.querySelector('[data-player="true"] [data-action="call"]');
@@ -633,7 +634,7 @@ function postCalculate() {
 	// Update table
 	switch (stage) {
 		case stages.PREFLOP:
-			$tablePreFlopWins.innerHTML = score;
+			$tablePreFlopWins.innerHTML = chenScore;
 			$tablePreFlopTime.innerHTML = `${performance.now() - startTime}ms`;
 			break;
 		case stages.FLOP:
