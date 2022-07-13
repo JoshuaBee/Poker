@@ -287,9 +287,9 @@ var communityCards = [];
 var communityCardsTemp = [];
 var possibleOpponentsCards = [];
 var holeCards = [];
-var wins = 0;
-var draws = 0;
-var losses = 0;
+var totalWins = 0;
+var totalDraws = 0;
+var totalLosses = 0;
 var opponents = 1;
 var stage;
 var opponents;
@@ -478,9 +478,9 @@ function run() {
 
 	deck.sort();
 
-	wins = 0;
-	draws = 0;
-	losses = 0;
+	totalWins = 0;
+	totalDraws = 0;
+	totalLosses = 0;
 	possibleCommunityCards = [...deck.cards];
 
 	// Need to run different functions depending on how many community cards have been drawn.
@@ -536,6 +536,25 @@ function run() {
 		case stages.FLOP:
 			console.log('possibleCommunityCards.length', possibleCommunityCards.length);
 			for (var communityCard4Index = 0; communityCard4Index < possibleCommunityCards.length - 1; communityCard4Index++) {
+				const worker = new Worker("./scripts/worker.js");
+				activeWorkerCount++;
+
+				worker.postMessage({
+					
+				});
+
+				worker.onmessage = (e) => {
+					const { wins, draws, losses } = e.data;
+					finishedWorkerCount++;
+					totalWins += wins;
+					totalDraws += draws;
+					totalLosses += losses;
+
+					if (finishedWorkerCount === activeWorkerCount) {
+						postCalculate();
+					}
+				}
+				/*
 				// 
 				communityCard4 = possibleCommunityCards[communityCard4Index];
 
@@ -551,7 +570,8 @@ function run() {
 					communityCardsTemp = [...communityCards, communityCard4, communityCard5];
 
 					calculate();
-				}
+					postCalculate();
+				} */
 			}
 			break;
 		// If 4 community cards have been drawn, then we need to draw 1 more.
@@ -567,6 +587,7 @@ function run() {
 				communityCardsTemp = [...communityCards, communityCard5];
 
 				calculate();
+				postCalculate();
 			}
 			break;
 		// If all 5 community cards have been drawn, then we have all the cards we need.
@@ -577,20 +598,23 @@ function run() {
 			communityCardsTemp = [...communityCards];
 
 			calculate();
+			postCalculate();
 			break;
 		default:
 			document.querySelector('#message').innerHTML = 'Uh oh';
 			break;
 	}
+}
 
-	total = wins + draws + losses;
-	no_lose_decimal = (wins + draws) / total;
-	no_lose_decimal_all = Math.pow((wins + draws) / total, opponents);
+function postCalculate() {
+	total = totalWins + totalDraws + totalLosses;
+	no_lose_decimal = (totalWins + totalDraws) / total;
+	no_lose_decimal_all = Math.pow((totalWins + totalDraws) / total, opponents);
 
 	if (debug) {
-		console.log('Wins:', wins);
-		console.log('Draws:', draws);
-		console.log('Losses:', losses);
+		console.log('Wins:', totalWins);
+		console.log('Draws:', totalDraws);
+		console.log('Losses:', totalLosses);
 		console.log('Total:', total);
 		console.log('Not Lose Percentage - 1 Opponent', `${(100 * no_lose_decimal).toFixed(2)}%`);
 		console.log('Not Lose Percentage - All Opponents', `${(100 * no_lose_decimal_all).toFixed(2)}%`);
@@ -606,24 +630,24 @@ function run() {
 			$tablePreFlopTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 		case stages.FLOP:
-			$tableFlopWins.innerHTML = `${wins} (${(100 * wins / total).toFixed(0)}%)`;
-			$tableFlopDraws.innerHTML = `${draws} (${(100 * draws / total).toFixed(0)}%)`;
-			$tableFlopLosses.innerHTML = `${losses} (${(100 * losses / total).toFixed(0)}%)`;
-			$tableFlopNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + draws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableFlopWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
+			$tableFlopDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
+			$tableFlopLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
+			$tableFlopNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
 			$tableFlopTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 		case stages.TURN:
-			$tableTurnWins.innerHTML = `${wins} (${(100 * wins / total).toFixed(0)}%)`;
-			$tableTurnDraws.innerHTML = `${draws} (${(100 * draws / total).toFixed(0)}%)`;
-			$tableTurnLosses.innerHTML = `${losses} (${(100 * losses / total).toFixed(0)}%)`;
-			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + draws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableTurnWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
+			$tableTurnDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
+			$tableTurnLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
+			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
 			$tableTurnTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 		case stages.RIVER:
-			$tableRiverWins.innerHTML = `${wins} (${(100 * wins / total).toFixed(0)}%)`;
-			$tableRiverDraws.innerHTML = `${draws} (${(100 * draws / total).toFixed(0)}%)`;
-			$tableRiverLosses.innerHTML = `${losses} (${(100 * losses / total).toFixed(0)}%)`;
-			$tableRiverNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + draws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableRiverWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
+			$tableRiverDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
+			$tableRiverLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
+			$tableRiverNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
 			$tableRiverTime.innerHTML = `${Date.now() - start}ms`;
 			break;
 	}
@@ -1002,16 +1026,15 @@ function calculate() {
 			result = compareScore(playersMaximumScore, opponentsMaximumScore);
 			switch (result) {
 				case results.HAND_1_WIN:
-					wins++;
+					totalWins++;
 					break;
 				case results.DRAW:
-					draws++;
+					totalDraws++;
 					break;
 				case results.HAND_2_WIN:
-					losses++;
+					totalLosses++;
 					break;
 			}
-
 		}
 	}
 }
