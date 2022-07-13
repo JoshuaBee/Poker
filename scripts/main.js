@@ -540,7 +540,11 @@ function run() {
 				activeWorkerCount++;
 
 				worker.postMessage({
-					
+					possibleCommunityCards,
+					communityCard4Index,
+					deck,
+					communityCards,
+					holeCards
 				});
 
 				worker.onmessage = (e) => {
