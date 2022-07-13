@@ -82,23 +82,45 @@ var losses = 0;
 // Input = possibleCommunityCards, communityCard4Index, deck, communityCards, holeCards
 // Output = wins, draws, losses
 onmessage = (e) => {
-	const { possibleCommunityCards, communityCard4Index, deck, communityCards } = e.data;
+	const { stage, possibleCommunityCards, communityCard4Index, deck, communityCards } = e.data;
 	holeCards = e.data.holeCards;
+	switch (stage) {
+		case stages.FLOP:
 
-	const communityCard4 = possibleCommunityCards[communityCard4Index];
+			const communityCard4 = possibleCommunityCards[communityCard4Index];
 
-	for (var communityCard5Index = communityCard4Index + 1; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
-		// 
-		const communityCard5 = possibleCommunityCards[communityCard5Index];
+			for (var communityCard5Index = communityCard4Index + 1; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
+				// 
+				const communityCard5 = possibleCommunityCards[communityCard5Index];
 
-		// Remove the community cards from the possible opponents cards.
-		possibleOpponentsCards = [...deck.cards];
-		possibleOpponentsCards.splice(communityCard4Index, 1);
-		possibleOpponentsCards.splice(communityCard5Index - 1, 1);
+				// Remove the community cards from the possible opponents cards.
+				possibleOpponentsCards = [...deck.cards];
+				possibleOpponentsCards.splice(communityCard4Index, 1);
+				possibleOpponentsCards.splice(communityCard5Index - 1, 1);
 
-		communityCardsTemp = [...communityCards, communityCard4, communityCard5];
+				communityCardsTemp = [...communityCards, communityCard4, communityCard5];
 
-		calculate();
+				calculate();
+			}
+			break;
+		case stages.TURN:
+			// TODO: Doesn't use communityCard4Index
+			for (var communityCard5Index = 0; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
+				// 
+				communityCard5 = possibleCommunityCards[communityCard5Index];
+
+				// Remove the community cards from the possible opponents cards.
+				possibleOpponentsCards = [...deck.cards];
+				possibleOpponentsCards.splice(communityCard5Index, 1);
+
+				communityCardsTemp = [...communityCards, communityCard5];
+
+				calculate();
+			}
+			break;
+		default:
+			console.error('Whoops');
+			break;
 	}
 
 	postMessage({ wins, draws, losses });

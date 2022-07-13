@@ -540,12 +540,13 @@ function run() {
 		case stages.FLOP:
 			var activeWorkerCount = 0;
 			var finishedWorkerCount = 0;
-			console.log('possibleCommunityCards.length', possibleCommunityCards.length);
+			
 			for (var communityCard4Index = 0; communityCard4Index < possibleCommunityCards.length - 1; communityCard4Index++) {
 				const worker = new Worker("./scripts/worker.js");
 				activeWorkerCount++;
 
 				worker.postMessage({
+					stage: stages.FLOP,
 					possibleCommunityCards,
 					communityCard4Index,
 					deck,
@@ -568,29 +569,33 @@ function run() {
 						postCalculate();
 					}
 				}
-				/*
-				// 
-				communityCard4 = possibleCommunityCards[communityCard4Index];
-
-				for (var communityCard5Index = communityCard4Index + 1; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
-					// 
-					communityCard5 = possibleCommunityCards[communityCard5Index];
-
-					// Remove the community cards from the possible opponents cards.
-					possibleOpponentsCards = [...deck.cards];
-					possibleOpponentsCards.splice(communityCard4Index, 1);
-					possibleOpponentsCards.splice(communityCard5Index - 1, 1);
-
-					communityCardsTemp = [...communityCards, communityCard4, communityCard5];
-
-					calculate();
-					postCalculate();
-				} */
 			}
 			break;
 		// If 4 community cards have been drawn, then we need to draw 1 more.
 		case stages.TURN:
-			for (var communityCard5Index = 0; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
+			const worker = new Worker("./scripts/worker.js");
+
+			worker.postMessage({
+				stage: stages.TURN,
+				possibleCommunityCards,
+				communityCard4Index: 0,
+				deck,
+				communityCards,
+				holeCards
+			});
+
+			worker.onmessage = (e) => {
+				const { wins, draws, losses } = e.data;
+
+				worker.terminate();
+
+				totalWins += wins;
+				totalDraws += draws;
+				totalLosses += losses;
+
+				postCalculate();
+			}
+			/* for (var communityCard5Index = 0; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
 				// 
 				communityCard5 = possibleCommunityCards[communityCard5Index];
 
@@ -601,8 +606,8 @@ function run() {
 				communityCardsTemp = [...communityCards, communityCard5];
 
 				calculate();
-				postCalculate();
 			}
+			postCalculate(); */
 			break;
 		// If all 5 community cards have been drawn, then we have all the cards we need.
 		case stages.RIVER:
@@ -667,8 +672,6 @@ function postCalculate() {
 	}
 
 	scrollTo(document.querySelector('#players-section'));
-
-	console.log('getScoreTimer', getScoreTimer);
 
 	// TODO: Remove
 	nextStage();
