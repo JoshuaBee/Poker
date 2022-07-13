@@ -277,7 +277,7 @@ class Player {
 // Constants
 
 const deck = new Deck();
-const debug = false;
+const debug = true;
 
 
 
@@ -299,6 +299,9 @@ var blinds;
 var stageBet = 0;
 var stageBets = false;
 var maximumRaises;
+
+// TODO: Remove
+var getScoreTimer = 0;
 
 
 
@@ -459,7 +462,7 @@ function run() {
 	}
 
 	// Flop
-	// TODO Make sure I do not want to include burnt cards
+	// TODO: Make sure I do not want to include burnt cards
 	//deck.burn();
 	//communityCards.push(deck.draw());
 	//communityCards.push(deck.draw());
@@ -490,7 +493,8 @@ function run() {
 			switch (positionGroup) {
 				case positions.EARLY:
 					if (score >= 6.5) {
-						//Play
+						// Play
+						// TODO: Play is either Check or Call.
 						var button = document.querySelector('[data-player="true"] [data-action="call"]');
 						button.style.backgroundColor = 'green';
 					}
@@ -502,24 +506,35 @@ function run() {
 					break;
 				case positions.MIDDLE:
 					if (score >= 6) {
-						//Play
+						// Play
+						// TODO: Play is either Check or Call.
+						var button = document.querySelector('[data-player="true"] [data-action="call"]');
+						button.style.backgroundColor = 'green';
 					}
 					else {
 						// Fold
+						var button = document.querySelector('[data-player="true"] [data-action="fold"]');
+						button.style.backgroundColor = 'green';
 					}
 					break;
 				case positions.LATE:
 					if (score >= 5.5) {
-						//Play
+						// Play
+						// TODO: Play is either Check or Call.
+						var button = document.querySelector('[data-player="true"] [data-action="call"]');
+						button.style.backgroundColor = 'green';
 					}
 					else {
 						// Fold
+						var button = document.querySelector('[data-player="true"] [data-action="fold"]');
+						button.style.backgroundColor = 'green';
 					}
 					break;
 			}
 			break;
 		// If 3 community cards have been drawn, then we need to draw 2 more.
 		case stages.FLOP:
+			console.log('possibleCommunityCards.length', possibleCommunityCards.length);
 			for (var communityCard4Index = 0; communityCard4Index < possibleCommunityCards.length - 1; communityCard4Index++) {
 				// 
 				communityCard4 = possibleCommunityCards[communityCard4Index];
@@ -614,6 +629,11 @@ function run() {
 	}
 
 	scrollTo(document.querySelector('#players-section'));
+
+	console.log('getScoreTimer', getScoreTimer);
+
+	// TODO: Remove
+	nextStage();
 }
 
 function getPositionName(position, opponents) {
@@ -953,6 +973,9 @@ function calculate() {
 	var opponentsMaximumScore;
 	var result;
 
+	// TODO: Remove
+	getScoreTimer = 0;
+
 	// Calculating the players best hand.
 	playersCombinedCards = [...communityCardsTemp, ...holeCards];
 	playersCombinedCards.sort(compareCards);
@@ -1069,7 +1092,9 @@ function getMaximumScore(hands) {
 	var maximumScore;
 
 	for (hand of hands) {
+		const start = performance.now();
 		score = getScore(hand);
+		getScoreTimer += performance.now() - start;
 
 		if (compareScore(score, maximumScore) === results.HAND_1_WIN) {
 			maximumScore = score;
@@ -1115,48 +1140,62 @@ function generatePokerHands(cards) {
 	return pokerHands;
 }
 
-// TODO Reduce number of operations in this function
+// TODO: Reduce number of operations in this function
 function getScore(cards) {
+    const card0Rank = ranks[cards[0].rank];
+    const card1Rank = ranks[cards[1].rank];
+    const card2Rank = ranks[cards[2].rank];
+    const card3Rank = ranks[cards[3].rank];
+    const card4Rank = ranks[cards[4].rank];
+
+    const card0Suit = suits[cards[0].suit];
+    const card1Suit = suits[cards[1].suit];
+    const card2Suit = suits[cards[2].suit];
+    const card3Suit = suits[cards[3].suit];
+    const card4Suit = suits[cards[4].suit];
+
 	if (cards.length != 5) {
 		return;
 	}
 
 	// Needed to check for Ace low straights.
 	var cardsAcesLow = [...cards];
+	var hasAce = ranks[cardsAcesLow[4].rank] === ranks.ACE;
 	while (ranks[cardsAcesLow[4].rank] === ranks.ACE) {
 		cardsAcesLow.unshift(cardsAcesLow.pop());
 	}
 
 	// Royal Flush
 	if (
-		ranks[cards[0].rank] === ranks.TEN &&
-		ranks[cards[1].rank] === ranks.JACK &&
-		ranks[cards[2].rank] === ranks.QUEEN &&
-		ranks[cards[3].rank] === ranks.KING &&
-		ranks[cards[4].rank] === ranks.ACE &&
-		cards[0].suit === cards[1].suit &&
-		cards[0].suit === cards[2].suit &&
-		cards[0].suit === cards[3].suit &&
-		cards[0].suit === cards[4].suit
+		card0Rank === ranks.TEN &&
+		card1Rank === ranks.JACK &&
+		card2Rank === ranks.QUEEN &&
+		card3Rank === ranks.KING &&
+		card4Rank === ranks.ACE &&
+		card0Suit === card1Suit &&
+		card0Suit === card2Suit &&
+		card0Suit === card3Suit &&
+		card0Suit === card4Suit
 	) {
-		return new Score(handValues.ROYAL_FLUSH, ranks[cards[4].rank]);
+		return new Score(handValues.ROYAL_FLUSH, card4Rank);
 	}
 
 	// Straight Flush
 	if (
-		Number(ranks[cards[0].rank]) + 1 === Number(ranks[cards[1].rank]) &&
-		Number(ranks[cards[1].rank]) + 1 === Number(ranks[cards[2].rank]) &&
-		Number(ranks[cards[2].rank]) + 1 === Number(ranks[cards[3].rank]) &&
-		Number(ranks[cards[3].rank]) + 1 === Number(ranks[cards[4].rank]) &&
-		cards[0].suit === cards[1].suit &&
-		cards[0].suit === cards[2].suit &&
-		cards[0].suit === cards[3].suit &&
-		cards[0].suit === cards[4].suit
+		card0Rank + 1 === card1Rank &&
+		card1Rank + 1 === card2Rank &&
+		card2Rank + 1 === card3Rank &&
+		card3Rank + 1 === card4Rank &&
+		card0Suit === card1Suit &&
+		card0Suit === card2Suit &&
+		card0Suit === card3Suit &&
+		card0Suit === card4Suit
 	) {
-		return new Score(handValues.STRAIGHT_FLUSH, ranks[cards[4].rank]);
+		return new Score(handValues.STRAIGHT_FLUSH, card4Rank);
 	}
 
 	if (
+		hasAce &&
 		ranks[cardsAcesLow[0].rank] === ranks.ACE &&
 		ranks[cardsAcesLow[1].rank] === ranks.TWO &&
 		ranks[cardsAcesLow[2].rank] === ranks.THREE &&
@@ -1172,59 +1211,60 @@ function getScore(cards) {
 
 	// Four of a Kind
 	if (
-		cards[0].rank === cards[1].rank &&
-		cards[0].rank === cards[2].rank &&
-		cards[0].rank === cards[3].rank
+		card0Rank === card1Rank &&
+		card0Rank === card2Rank &&
+		card0Rank === card3Rank
 	) {
-		return new Score(handValues.FOUR_OF_A_KIND, ranks[cards[3].rank], ranks[cards[4].rank]);
+		return new Score(handValues.FOUR_OF_A_KIND, card3Rank, card4Rank);
 	}
 
 	if (
-		cards[1].rank === cards[2].rank &&
-		cards[1].rank === cards[3].rank &&
-		cards[1].rank === cards[4].rank
+		card1Rank === card2Rank &&
+		card1Rank === card3Rank &&
+		card1Rank === card4Rank
 	) {
-		return new Score(handValues.FOUR_OF_A_KIND, ranks[cards[4].rank], ranks[cards[0].rank]);
+		return new Score(handValues.FOUR_OF_A_KIND, card4Rank, card0Rank);
 	}
 
 	// Full House
 	if (
-		cards[0].rank === cards[1].rank &&
-		cards[0].rank === cards[2].rank &&
-		cards[3].rank === cards[4].rank
+		card0Rank === card1Rank &&
+		card0Rank === card2Rank &&
+		card3Rank === card4Rank
 	) {
-		return new Score(handValues.FULL_HOUSE, ranks[cards[2].rank], ranks[cards[4].rank]);
+		return new Score(handValues.FULL_HOUSE, card2Rank, card4Rank);
 	}
 
 	if (
-		cards[0].rank === cards[1].rank &&
-		cards[2].rank === cards[3].rank &&
-		cards[2].rank === cards[4].rank
+		card0Rank === card1Rank &&
+		card2Rank === card3Rank &&
+		card2Rank === card4Rank
 	) {
-		return new Score(handValues.FULL_HOUSE, ranks[cards[4].rank], ranks[cards[1].rank]);
+		return new Score(handValues.FULL_HOUSE, card4Rank, card1Rank);
 	}
 
 	// Flush
 	if (
-		cards[0].suit === cards[1].suit &&
-		cards[0].suit === cards[2].suit &&
-		cards[0].suit === cards[3].suit &&
-		cards[0].suit === cards[4].suit
+		card0Suit === card1Suit &&
+		card0Suit === card2Suit &&
+		card0Suit === card3Suit &&
+		card0Suit === card4Suit
 	) {
-		return new Score(handValues.FLUSH, ranks[cards[4].rank], ranks[cards[3].rank], ranks[cards[2].rank], ranks[cards[1].rank], ranks[cards[0].rank]);
+		return new Score(handValues.FLUSH, card4Rank, card3Rank, card2Rank, card1Rank, card0Rank);
 	}
 
 	// Straight
 	if (
-		Number(ranks[cards[0].rank]) + 1 === Number(ranks[cards[1].rank]) &&
-		Number(ranks[cards[1].rank]) + 1 === Number(ranks[cards[2].rank]) &&
-		Number(ranks[cards[2].rank]) + 1 === Number(ranks[cards[3].rank]) &&
-		Number(ranks[cards[3].rank]) + 1 === Number(ranks[cards[4].rank])
+		card0Rank + 1 === card1Rank &&
+		card1Rank + 1 === card2Rank &&
+		card2Rank + 1 === card3Rank &&
+		card3Rank + 1 === card4Rank
 	) {
-		return new Score(handValues.STRAIGHT, ranks[cards[4].rank]);
+		return new Score(handValues.STRAIGHT, card4Rank);
 	}
 
 	if (
+		hasAce &&
 		ranks[cardsAcesLow[0].rank] === ranks.ACE &&
 		ranks[cardsAcesLow[1].rank] === ranks.TWO &&
 		ranks[cardsAcesLow[2].rank] === ranks.THREE &&
@@ -1236,87 +1276,75 @@ function getScore(cards) {
 
 	// Three of a Kind
 	if (
-		cards[0].rank === cards[1].rank &&
-		cards[0].rank === cards[2].rank
+		card0Rank === card1Rank &&
+		card0Rank === card2Rank
 	) {
-		return new Score(handValues.THREE_OF_A_KIND, ranks[cards[2].rank], ranks[cards[4].rank], ranks[cards[3].rank]);
+		return new Score(handValues.THREE_OF_A_KIND, card2Rank, card4Rank, card3Rank);
 	}
 
 	if (
-		cards[1].rank === cards[2].rank &&
-		cards[1].rank === cards[3].rank
+		card1Rank === card2Rank &&
+		card1Rank === card3Rank
 	) {
-		primaryCards = [
-			cards[1],
-			cards[2],
-			cards[3]
-		];
-
-		return new Score(handValues.THREE_OF_A_KIND, ranks[cards[3].rank], ranks[cards[4].rank], ranks[cards[0].rank]);
+		return new Score(handValues.THREE_OF_A_KIND, card3Rank, card4Rank, card0Rank);
 	}
 
 	if (
-		cards[2].rank === cards[3].rank &&
-		cards[2].rank === cards[4].rank
+		card2Rank === card3Rank &&
+		card2Rank === card4Rank
 	) {
-		primaryCards = [
-			cards[2],
-			cards[3],
-			cards[4]
-		];
-
-		return new Score(handValues.THREE_OF_A_KIND, ranks[cards[4].rank], ranks[cards[1].rank], ranks[cards[0].rank]);
+		return new Score(handValues.THREE_OF_A_KIND, card4Rank, card1Rank, card0Rank);
 	}
 
 	// Two Pairs
 	if (
-		cards[0].rank === cards[1].rank &&
-		cards[2].rank === cards[3].rank
+		card0Rank === card1Rank &&
+		card2Rank === card3Rank
 	) {
-		return new Score(handValues.TWO_PAIRS, ranks[cards[3].rank], ranks[cards[1].rank], ranks[cards[4].rank]);
+		return new Score(handValues.TWO_PAIRS, card3Rank, card1Rank, card4Rank);
 	}
 
 	if (
-		cards[0].rank === cards[1].rank &&
-		cards[3].rank === cards[4].rank
+		card0Rank === card1Rank &&
+		card3Rank === card4Rank
 	) {
-		return new Score(handValues.TWO_PAIRS, ranks[cards[4].rank], ranks[cards[1].rank], ranks[cards[2].rank]);
+		return new Score(handValues.TWO_PAIRS, card4Rank, card1Rank, card2Rank);
 	}
 
 	if (
-		cards[1].rank === cards[2].rank &&
-		cards[3].rank === cards[4].rank
+		card1Rank === card2Rank &&
+		card3Rank === card4Rank
 	) {
-		return new Score(handValues.TWO_PAIRS, ranks[cards[4].rank], ranks[cards[2].rank], ranks[cards[0].rank]);
+		return new Score(handValues.TWO_PAIRS, card4Rank, card2Rank, card0Rank);
 	}
 
 	// Pair
 	if (
-		cards[0].rank === cards[1].rank
+		card0Rank === card1Rank
 	) {
-		return new Score(handValues.PAIR, ranks[cards[1].rank], ranks[cards[4].rank], ranks[cards[3].rank], ranks[cards[2].rank]);
+		return new Score(handValues.PAIR, card1Rank, card4Rank, card3Rank, card2Rank);
 	}
 
 	if (
-		cards[1].rank === cards[2].rank
+		card1Rank === card2Rank
 	) {
-		return new Score(handValues.PAIR, ranks[cards[2].rank], ranks[cards[4].rank], ranks[cards[3].rank], ranks[cards[0].rank]);
+		return new Score(handValues.PAIR, card2Rank, card4Rank, card3Rank, card0Rank);
 	}
 
 	if (
-		cards[2].rank === cards[3].rank
+		card2Rank === card3Rank
 	) {
-		return new Score(handValues.PAIR, ranks[cards[3].rank], ranks[cards[4].rank], ranks[cards[1].rank], ranks[cards[0].rank]);
+		return new Score(handValues.PAIR, card3Rank, card4Rank, card1Rank, card0Rank);
 	}
 
 	if (
-		cards[3].rank === cards[4].rank
+		card3Rank === card4Rank
 	) {
-		return new Score(handValues.PAIR, ranks[cards[4].rank], ranks[cards[2].rank], ranks[cards[1].rank], ranks[cards[0].rank]);
+		return new Score(handValues.PAIR, card4Rank, card2Rank, card1Rank, card0Rank);
 	}
 
 	// Highcard
-	return new Score(handValues.HIGHCARD, ranks[cards[4].rank], ranks[cards[3].rank], ranks[cards[2].rank], ranks[cards[1].rank], ranks[cards[0].rank]);
+	return new Score(handValues.HIGHCARD, card4Rank, card3Rank, card2Rank, card1Rank, card0Rank);
 }
 
 function compareScore(score1, score2) {
