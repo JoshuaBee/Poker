@@ -299,6 +299,7 @@ var blinds;
 var stageBet = 0;
 var stageBets = false;
 var maximumRaises;
+var startTime;
 
 // TODO: Remove
 var getScoreTimer = 0;
@@ -421,7 +422,7 @@ function run() {
 	// Variables
 	var communityCard4;
 	var communityCard5;
-	var start = Date.now();
+	startTime = performance.now();
 	var possibleCommunityCards = [];
 	var total = 0;
 
@@ -624,7 +625,7 @@ function postCalculate() {
 		console.log('Total:', total);
 		console.log('Not Lose Percentage - 1 Opponent', `${(100 * no_lose_decimal).toFixed(2)}%`);
 		console.log('Not Lose Percentage - All Opponents', `${(100 * no_lose_decimal_all).toFixed(2)}%`);
-		console.log('Time:', `${Date.now() - start}ms`);
+		console.log('Time:', `${performance.now() - startTime}ms`);
 	}
 
 	var activeOpponents = players.filter(player => player.getAction() !== actions.FOLD && !player.isPlayer());
@@ -633,28 +634,28 @@ function postCalculate() {
 	switch (stage) {
 		case stages.PREFLOP:
 			$tablePreFlopWins.innerHTML = score;
-			$tablePreFlopTime.innerHTML = `${Date.now() - start}ms`;
+			$tablePreFlopTime.innerHTML = `${performance.now() - startTime}ms`;
 			break;
 		case stages.FLOP:
 			$tableFlopWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableFlopDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableFlopLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
 			$tableFlopNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
-			$tableFlopTime.innerHTML = `${Date.now() - start}ms`;
+			$tableFlopTime.innerHTML = `${performance.now() - startTime}ms`;
 			break;
 		case stages.TURN:
 			$tableTurnWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableTurnDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableTurnLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
 			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
-			$tableTurnTime.innerHTML = `${Date.now() - start}ms`;
+			$tableTurnTime.innerHTML = `${performance.now() - startTime}ms`;
 			break;
 		case stages.RIVER:
 			$tableRiverWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableRiverDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableRiverLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
 			$tableRiverNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
-			$tableRiverTime.innerHTML = `${Date.now() - start}ms`;
+			$tableRiverTime.innerHTML = `${performance.now() - startTime}ms`;
 			break;
 	}
 
