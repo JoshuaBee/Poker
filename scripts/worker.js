@@ -46,6 +46,15 @@ const results = {
 };
 Object.freeze(results);
 
+const stages = {
+	PREFLOP: 1,
+	FLOP: 2,
+	TURN: 3,
+	RIVER: 4,
+	SHOWDOWN: 5
+};
+Object.freeze(stages);
+
 
 
 // Classes
