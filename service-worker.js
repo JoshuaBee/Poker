@@ -1,5 +1,5 @@
 const version = "1.09";
-const cacheName = "jb-${version}";
+const cacheName = `jb-${version}`;
 
 self.addEventListener("install", e => {
 	console.log('Service worker installing...');
