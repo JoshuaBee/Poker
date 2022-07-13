@@ -277,7 +277,7 @@ class Player {
 // Constants
 
 const deck = new Deck();
-const debug = true;
+const debug = false;
 
 
 
@@ -544,7 +544,6 @@ function run() {
 					stage: stages.FLOP,
 					possibleCommunityCards,
 					communityCard4Index,
-					deck,
 					communityCards,
 					holeCards
 				});
@@ -571,7 +570,6 @@ function run() {
 			const turnWorker = new Worker("./scripts/worker.js");
 
 			console.log('possibleCommunityCards', possibleCommunityCards);
-			console.log('deck', deck);
 			console.log('communityCards', communityCards);
 			console.log('holeCards', holeCards);
 
@@ -579,7 +577,6 @@ function run() {
 				stage: stages.TURN,
 				possibleCommunityCards,
 				communityCard4Index: 0,
-				deck,
 				communityCards,
 				holeCards
 			});
@@ -604,7 +601,6 @@ function run() {
 				stage: stages.RIVER,
 				possibleCommunityCards,
 				communityCard4Index: 0,
-				deck,
 				communityCards,
 				holeCards
 			});
@@ -620,15 +616,6 @@ function run() {
 
 				postCalculate();
 			}
-			/*
-			// Remove the community cards from the possible opponents cards.
-			possibleOpponentsCards = [...deck.cards];
-
-			communityCardsTemp = [...communityCards];
-
-			calculate();
-			postCalculate();
-			*/
 			break;
 		default:
 			document.querySelector('#message').innerHTML = 'Uh oh';
@@ -648,7 +635,7 @@ function postCalculate() {
 		console.log('Total:', total);
 		console.log('Not Lose Percentage - 1 Opponent', `${(100 * no_lose_decimal).toFixed(2)}%`);
 		console.log('Not Lose Percentage - All Opponents', `${(100 * no_lose_decimal_all).toFixed(2)}%`);
-		console.log('Time:', `${performance.now() - startTime}ms`);
+		console.log('Time:', `${Math.floor(performance.now() - startTime)}ms`);
 	}
 
 	var activeOpponents = players.filter(player => player.getAction() !== actions.FOLD && !player.isPlayer());
@@ -657,28 +644,28 @@ function postCalculate() {
 	switch (stage) {
 		case stages.PREFLOP:
 			$tablePreFlopWins.innerHTML = chenScore;
-			$tablePreFlopTime.innerHTML = `${performance.now() - startTime}ms`;
+			$tablePreFlopTime.innerHTML = `${Math.floor(Math.floor(performance.now() - startTime))}ms`;
 			break;
 		case stages.FLOP:
 			$tableFlopWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableFlopDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableFlopLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
 			$tableFlopNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
-			$tableFlopTime.innerHTML = `${performance.now() - startTime}ms`;
+			$tableFlopTime.innerHTML = `${Math.floor(performance.now() - startTime)}ms`;
 			break;
 		case stages.TURN:
 			$tableTurnWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableTurnDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableTurnLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
 			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
-			$tableTurnTime.innerHTML = `${performance.now() - startTime}ms`;
+			$tableTurnTime.innerHTML = `${Math.floor(performance.now() - startTime)}ms`;
 			break;
 		case stages.RIVER:
 			$tableRiverWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableRiverDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableRiverLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
 			$tableRiverNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
-			$tableRiverTime.innerHTML = `${performance.now() - startTime}ms`;
+			$tableRiverTime.innerHTML = `${Math.floor(performance.now() - startTime)}ms`;
 			break;
 	}
 

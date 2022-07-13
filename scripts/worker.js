@@ -92,7 +92,7 @@ var losses = 0;
 
 // TODO: Optimise passing the messages.
 onmessage = (e) => {
-	const { stage, possibleCommunityCards, communityCard4Index, deck, communityCards } = e.data;
+	const { stage, possibleCommunityCards, communityCard4Index, communityCards } = e.data;
 	holeCards = e.data.holeCards;
 
 	switch (stage) {
@@ -104,7 +104,7 @@ onmessage = (e) => {
 				const communityCard5 = possibleCommunityCards[communityCard5Index];
 
 				// Remove the community cards from the possible opponents cards.
-				possibleOpponentsCards = [...deck.cards];
+				possibleOpponentsCards = [...possibleCommunityCards];
 				possibleOpponentsCards.splice(communityCard4Index, 1);
 				possibleOpponentsCards.splice(communityCard5Index - 1, 1);
 
@@ -120,7 +120,7 @@ onmessage = (e) => {
 				const communityCard5 = possibleCommunityCards[communityCard5Index];
 
 				// Remove the community cards from the possible opponents cards.
-				possibleOpponentsCards = [...deck.cards];
+				possibleOpponentsCards = [...possibleCommunityCards];
 				possibleOpponentsCards.splice(communityCard5Index, 1);
 
 				communityCardsTemp = [...communityCards, communityCard5];
@@ -131,7 +131,7 @@ onmessage = (e) => {
 		case stages.RIVER:
 			// TODO: Doesn't use possibleCommunityCards, communityCard4Index
 			// Remove the community cards from the possible opponents cards.
-			possibleOpponentsCards = [...deck.cards];
+			possibleOpponentsCards = [...possibleCommunityCards];
 
 			communityCardsTemp = [...communityCards];
 
