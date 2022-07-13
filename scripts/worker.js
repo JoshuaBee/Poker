@@ -92,10 +92,10 @@ var losses = 0;
 // Output = wins, draws, losses
 onmessage = (e) => {
 	const { stage, possibleCommunityCards, communityCard4Index, deck, communityCards } = e.data;
+	console.log('stage', stage);
 	holeCards = e.data.holeCards;
 	switch (stage) {
 		case stages.FLOP:
-
 			const communityCard4 = possibleCommunityCards[communityCard4Index];
 
 			for (var communityCard5Index = communityCard4Index + 1; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
