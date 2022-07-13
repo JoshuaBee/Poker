@@ -538,6 +538,8 @@ function run() {
 			break;
 		// If 3 community cards have been drawn, then we need to draw 2 more.
 		case stages.FLOP:
+			var activeWorkerCount = 0;
+			var finishedWorkerCount = 0;
 			console.log('possibleCommunityCards.length', possibleCommunityCards.length);
 			for (var communityCard4Index = 0; communityCard4Index < possibleCommunityCards.length - 1; communityCard4Index++) {
 				const worker = new Worker("./scripts/worker.js");
