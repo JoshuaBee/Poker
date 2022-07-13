@@ -555,11 +555,15 @@ function run() {
 
 				worker.onmessage = (e) => {
 					const { wins, draws, losses } = e.data;
+
+					worker.terminate();
+
 					finishedWorkerCount++;
 					totalWins += wins;
 					totalDraws += draws;
 					totalLosses += losses;
 
+					// Check if all workers have finished...
 					if (finishedWorkerCount === activeWorkerCount) {
 						postCalculate();
 					}
@@ -650,7 +654,7 @@ function postCalculate() {
 			$tableTurnWins.innerHTML = `${totalWins} (${(100 * totalWins / total).toFixed(0)}%)`;
 			$tableTurnDraws.innerHTML = `${totalDraws} (${(100 * totalDraws / total).toFixed(0)}%)`;
 			$tableTurnLosses.innerHTML = `${totalLosses} (${(100 * totalLosses / total).toFixed(0)}%)`;
-			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((wins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
+			$tableTurnNotLosePercentage.innerHTML = `${(100 * Math.pow((totalWins + totalDraws) / total, activeOpponents.length)).toFixed(2)}%`;
 			$tableTurnTime.innerHTML = `${performance.now() - startTime}ms`;
 			break;
 		case stages.RIVER:
