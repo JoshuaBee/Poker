@@ -81,6 +81,7 @@ class Score {
 
 // Variables
 
+var possibleOpponentsCards = [];
 var communityCardsTemp = [];
 var holeCards = [];
 var wins = 0;
@@ -88,12 +89,12 @@ var draws = 0;
 var losses = 0;
 
 
-// Input = possibleCommunityCards, communityCard4Index, deck, communityCards, holeCards
-// Output = wins, draws, losses
+
+// TODO: Optimise passing the messages.
 onmessage = (e) => {
 	const { stage, possibleCommunityCards, communityCard4Index, deck, communityCards } = e.data;
-	console.log('stage', stage);
 	holeCards = e.data.holeCards;
+
 	switch (stage) {
 		case stages.FLOP:
 			const communityCard4 = possibleCommunityCards[communityCard4Index];
@@ -116,7 +117,7 @@ onmessage = (e) => {
 			// TODO: Doesn't use communityCard4Index
 			for (var communityCard5Index = 0; communityCard5Index < possibleCommunityCards.length; communityCard5Index++) {
 				// 
-				communityCard5 = possibleCommunityCards[communityCard5Index];
+				const communityCard5 = possibleCommunityCards[communityCard5Index];
 
 				// Remove the community cards from the possible opponents cards.
 				possibleOpponentsCards = [...deck.cards];
@@ -126,6 +127,16 @@ onmessage = (e) => {
 
 				calculate();
 			}
+			break;
+		case stages.RIVER:
+			// TODO: Doesn't use possibleCommunityCards, communityCard4Index
+			// Remove the community cards from the possible opponents cards.
+			possibleOpponentsCards = [...deck.cards];
+
+			communityCardsTemp = [...communityCards];
+
+			calculate();
+
 			break;
 		default:
 			console.error('Whoops');
@@ -456,7 +467,6 @@ function compareScore(score1, score2) {
 	}
 
 	if (score1 === score2) {
-		//throw 'Draw';
 		return results.DRAW;
 	}
 
@@ -468,7 +478,6 @@ function compareScore(score1, score2) {
 	}
 	else {
 		if (score1.primaryCard === undefined || score2.primaryCard === undefined) {
-			//throw 'Draw';
 			return results.DRAW;
 		}
 
@@ -481,7 +490,6 @@ function compareScore(score1, score2) {
 		}
 		else {
 			if (score1.secondaryCard === undefined || score2.secondaryCard === undefined) {
-				//throw 'Draw';
 				return results.DRAW;
 			}
 
@@ -494,7 +502,6 @@ function compareScore(score1, score2) {
 			}
 			else {
 				if (score1.tertiaryCard === undefined || score2.tertiaryCard === undefined) {
-					//throw 'Draw';
 					return results.DRAW;
 				}
 
@@ -507,7 +514,6 @@ function compareScore(score1, score2) {
 				}
 				else {
 					if (score1.quaternaryCard === undefined || score2.quaternaryCard === undefined) {
-						//throw 'Draw';
 						return results.DRAW;
 					}
 
@@ -520,7 +526,6 @@ function compareScore(score1, score2) {
 					}
 					else {
 						if (score1.quinaryCard === undefined || score2.quinaryCard === undefined) {
-							//throw 'Draw';
 							return results.DRAW;
 						}
 
@@ -532,7 +537,6 @@ function compareScore(score1, score2) {
 							return results.HAND_2_WIN;
 						}
 						else {
-							//throw 'Draw';
 							return results.DRAW;
 						}
 					}
@@ -540,7 +544,4 @@ function compareScore(score1, score2) {
 			}
 		}
 	}
-
-	//throw 'Draw';
-	return results.DRAW;
 }
