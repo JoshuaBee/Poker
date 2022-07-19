@@ -1379,6 +1379,6 @@ function runPremierLeague() {
 	*/
 
 	/*
-		Best Without Vardy and with cheapest MID and FWD
+		Best Without Vardy and without cheapest MID and FWD...
 	*/
 }
