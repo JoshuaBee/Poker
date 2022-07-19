@@ -1,9 +1,5 @@
 // Variables
 
-const goalkeeperCount = goalkeepers.length;
-const defenderCount = defenders.length;
-const midfielderCount = midfielders.length;
-const forwardCount = forwards.length;
 let goalkeeper1Index = 0;
 let goalkeeper2Index = 0;
 let defender1Index = 0;
@@ -34,6 +30,11 @@ onmessage = (e) => {
 		forwards,
 		goalkeeper1Index
 	} = e.data;
+
+	const goalkeeperCount = goalkeepers.length;
+	const defenderCount = defenders.length;
+	const midfielderCount = midfielders.length;
+	const forwardCount = forwards.length;
 
 	const goalkeeper1 = goalkeepers[goalkeeper1Index];
 	const goalkeeper1PointsPerMinute = goalkeeper1.points / goalkeeper1.minutes;
