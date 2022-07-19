@@ -94,8 +94,8 @@ onmessage = (e) => {
 											const midfielder4PointsPerMinute = midfielder4.points / midfielder4.minutes;
 											const midfielder4Team = midfielder4.name.split('---')[1].substring(0, 3);
 
-											/*for (midfielder5Index = midfielder4Index + 1; midfielder5Index < midfielderCount; midfielder5Index++) {*/
-												midfielder5Index = 0;
+											for (midfielder5Index = midfielder4Index + 1; midfielder5Index < midfielderCount; midfielder5Index++) {
+												//midfielder5Index = 0;
 												const midfielder5 = midfielders[midfielder5Index];
 												const midfielder5PointsPerMinute = midfielder5.points / midfielder5.minutes;
 												const midfielder5Team = midfielder5.name.split('---')[1].substring(0, 3);
@@ -111,8 +111,8 @@ onmessage = (e) => {
 														const forward2PointsPerMinute = forward2.points / forward2.minutes;
 														const forward2Team = forward2.name.split('---')[1].substring(0, 3);
 				
-														/*for (forward3Index = forward2Index + 1; forward3Index < forwardCount; forward3Index++) {*/
-															forward3Index = 0;
+														for (forward3Index = forward2Index + 1; forward3Index < forwardCount; forward3Index++) {
+															//forward3Index = 0;
 															const forward3 = forwards[forward3Index];
 															const forward3PointsPerMinute = forward3.points / forward3.minutes;
 															const forward3Team = forward3.name.split('---')[1].substring(0, 3);
@@ -239,10 +239,10 @@ onmessage = (e) => {
 															}
 
 															// console.log('total_price', total_price, total_points_per_minute);
-														//}
+														}
 													}
 												}
-											//}
+											}
 										}
 									}
 								}

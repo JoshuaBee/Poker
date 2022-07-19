@@ -1358,7 +1358,7 @@ function runPremierLeague() {
 		Best Without Vardy
 		
 		Best Team:
-			Raya---BREGKP
+			Ederson---MCIGKP
 			Guaita---CRYGKP
 			Chalobah---CHEDEF
 			James---CHEDEF
@@ -1371,10 +1371,14 @@ function runPremierLeague() {
 			Salah---LIVMID
 			Gray---EVEMID
 			Edouard---CRYFWD
-			Vardy---LEIFWD
+			Jesus---ARSFWD
 			Gelhardt---LEEFWD
 
-		Best Team Price 100
-		Best Team Total Points Per Full Season 3623.699371782082
+		Best Team Price 99.5
+		Best Team Total Points Per Full Season 3599.260147519829
+	*/
+
+	/*
+		Best Without Vardy and with cheapest MID and FWD
 	*/
 }
