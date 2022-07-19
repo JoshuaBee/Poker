@@ -1252,7 +1252,7 @@ const forwards = [
 const b = document.createElement('button');
 b.innerHTML = 'Run PL';
 b.addEventListener('click', () => {
-	runPremierLeague;
+	runPremierLeague();
 });
 document.querySelector('main').appendChild(b);
 
