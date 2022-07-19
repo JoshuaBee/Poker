@@ -1223,7 +1223,7 @@ const forwards = [
 	{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
 	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
 	{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
-	{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
+	//{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
 	{name:'Havertz---CHEFWD',price:8,points:112,minutes:1802},
 	{name:'Wilson---NEWFWD',price:7.5,points:75,minutes:1386},
 	{name:'Toney---BREFWD',price:7,points:139,minutes:2908},
@@ -1236,9 +1236,6 @@ const forwards = [
 	{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
-	{name:'Haaland1---MCIFWD',price:11.5,points:200,minutes:3420},
-	{name:'Haaland2---MCIFWD',price:11.5,points:250,minutes:3420},
-	{name:'Haaland3---MCIFWD',price:11.5,points:300,minutes:3420},
 	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
@@ -1310,82 +1307,34 @@ function runPremierLeague() {
 	}
 
 	/*
-		First Run
-
+		Best
+		
 		Best Team:
-			Alisson-LIVGKP
-			Guaita-CRYGKP
-			Chalobah-CHEDEF
-			James-CHEDEF
-			Robertson-LIVDEF
-			Alexander-Arnold-LIVDEF
-			Guéhi-CRYDEF
-			Benrahma-WHUMID
-			Kulusevski-TOTMID
-			Barnes-LEIMID
-			De Bruyne-MCIMID
-			Gray-EVEMID
-			Nketiah-ARSFWD
-			Diogo Jota-LIVFWD
-			Gelhardt-LEEFWD
+			Raya---BREGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Maddison---LEIMID
+			Salah---LIVMID
+			Gray---EVEMID
+			Edouard---CRYFWD
+			Vardy---LEIFWD
+			Gelhardt---LEEFWD
+
 		Best Team Price 100
-		Best Team Total Points Per Full Season 3316.9400805800065
+		Best Team Total Points Per Full Season 3623.699371782082
 	*/
 
 	/*
-		Second Run
-		Excluding Nketiah
-
+		Haaland scores 350 points
+		
 		Best Team:
-			Alisson-LIVGKP
-			Guaita-CRYGKP
-			Chalobah-CHEDEF
-			James-CHEDEF
-			Robertson-LIVDEF
-			Alexander-Arnold-LIVDEF
-			Guéhi-CRYDEF
-			Benrahma-WHUMID
-			Kulusevski-TOTMID
-			Maddison-LEIMID
-			Mount-CHEMID
-			Gray-EVEMID
-			Diogo Jota-LIVFWD
-			Vardy-LEIFWD
-			Gelhardt-LEEFWD
-		Best Team Price 99.5
-		Best Team Total Points Per Full Season 3309.416912055309
-	*/
-
-	/*
-		Third Run
-		Excluding Diego Jota
-
-		Best Team:
-			Alisson-LIVGKP
-			Guaita-CRYGKP
-			Chalobah-CHEDEF
-			James-CHEDEF
-			Robertson-LIVDEF
-			Alexander-Arnold-LIVDEF
-			Guéhi-CRYDEF
-			Benrahma-WHUMID
-			Kulusevski-TOTMID
-			Maddison-LEIMID
-			De Bruyne-MCIMID
-			Gray-EVEMID
-			Edouard-CRYFWD
-			Vardy-LEIFWD
-			Gelhardt-LEEFWD
-		Best Team Price 100
-		Best Team Total Points Per Full Season 3307.091011073509
-	*/
-
-	/*
-		Fourth Run
-		With Captaincy
-
-		Best Team:
-			Alisson---LIVGKP
+			Sá---WOLGKP
 			Guaita---CRYGKP
 			Chalobah---CHEDEF
 			James---CHEDEF
@@ -1395,20 +1344,19 @@ function runPremierLeague() {
 			Benrahma---WHUMID
 			Kulusevski---TOTMID
 			Barnes---LEIMID
-			Salah---LIVMID
+			Maddison---LEIMID
 			Gray---EVEMID
-			Edouard---CRYFWD
-			Vardy---LEIFWD
+			Diogo Jota---LIVFWD
+			Haaland---MCIFWD
 			Gelhardt---LEEFWD
 
 		Best Team Price 100
-		Best Team Total Points Per Full Season 3630.4578721830962
+		Best Team Total Points Per Full Season 3701.611719442064
 	*/
 
 	/*
-		Fifth Run
-		With Team Limits
-
+		Best Without Vardy
+		
 		Best Team:
 			Raya---BREGKP
 			Guaita---CRYGKP
@@ -1428,50 +1376,5 @@ function runPremierLeague() {
 
 		Best Team Price 100
 		Best Team Total Points Per Full Season 3623.699371782082
-	*/
-
-	/*
-		Sixth Run
-		Locking the defence
-
-		Best Team:
-			Raya---BREGKP
-			Guaita---CRYGKP
-			Chalobah---CHEDEF
-			James---CHEDEF
-			Robertson---LIVDEF
-			Alexander-Arnold---LIVDEF
-			Guéhi---CRYDEF
-			Benrahma---WHUMID
-			Kulusevski---TOTMID
-			Maddison---LEIMID
-			Salah---LIVMID
-			Gray---EVEMID
-			Edouard---CRYFWD
-			Vardy---LEIFWD
-			Gelhardt---LEEFWD
-
-		Best Team Price 100
-		Best Team Total Points Per Full Season 3623.699371782082
-	*/
-
-	/*
-		Seventh Run: Haaland scores 400 points
-		Guess some new players scores
-		
-		Best Team:
-			Sá---WOLGKPGuaita---CRYGKPChalobah---CHEDEFJames---CHEDEFRobertson---LIVDEFAlexander-Arnold---LIVDEFGuéhi---CRYDEFBenrahma---WHUMIDKulusevski---TOTMIDBarnes---LEIMIDMaddison---LEIMIDGray---EVEMIDDiogo Jota---LIVFWDHaaland5---MCIFWDGelhardt---LEEFWD
-
-		Best Team Price 100
-		Best Team Total Points Per Full Season 3801.6117194420635
-	*/
-
-	/*
-		Eigth Run: Haaland scores 350 points
-		Guess some new players scores
-		
-		Best Team Sá---WOLGKPGuaita---CRYGKPChalobah---CHEDEFJames---CHEDEFRobertson---LIVDEFAlexander-Arnold---LIVDEFGuéhi---CRYDEFBenrahma---WHUMIDKulusevski---TOTMIDBarnes---LEIMIDMaddison---LEIMIDGray---EVEMIDDiogo Jota---LIVFWDHaaland4---MCIFWDGelhardt---LEEFWD
-main.js:1308 Best Team Price 100
-main.js:1309 Best Team Total Points Per Full Season 3701.611719442064
 	*/
 }
