@@ -1238,7 +1238,7 @@ const forwards = [
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
-	//{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
+	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
 	//{name:'Nketiah---ARSFWD',price:7,points:55,minutes:823},
 	//{name:'Daka---LEIFWD',price:6,points:70,minutes:1152},
 	//{name:'Iheanacho---LEIFWD',price:6.5,points:80,minutes:1253},
@@ -1375,7 +1375,32 @@ function runPremierLeague() {
 
 	/*
 		Fourth Run
-		With Captaincy and maximum of 3 from a team
+		With Captaincy
+
+		Best Team:
+			Alisson---LIVGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Salah---LIVMID
+			Gray---EVEMID
+			Edouard---CRYFWD
+			Vardy---LEIFWD
+			Gelhardt---LEEFWD
+
+		Best Team Price 100
+		Best Team Total Points Per Full Season 3630.4578721830962
+	*/
+
+	/*
+		Fifth Run
+		With Team Limits
 
 		Best Team:
 
