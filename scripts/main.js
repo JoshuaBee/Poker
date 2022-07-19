@@ -1292,7 +1292,24 @@ function runPremierLeague() {
 		}
 	}
 
-	// Best Team Alisson-LIVGKPGuaita-CRYGKPChalobah-CHEDEFJames-CHEDEFRobertson-LIVDEFAlexander-Arnold-LIVDEFGuéhi-CRYDEFBenrahma-WHUMIDKulusevski-TOTMIDBarnes-LEIMIDDe Bruyne-MCIMIDGray-EVEMIDNketiah-ARSFWDDiogo Jota-LIVFWDGelhardt-LEEFWD
-	// Best Team Price 100
-	// Best Team Total Points Per Minute 0.9698655206374287
+	/*
+		Best Team:
+			Alisson-LIVGKP
+			Guaita-CRYGKP
+			Chalobah-CHEDEF
+			James-CHEDEF
+			Robertson-LIVDEF
+			Alexander-Arnold-LIVDEF
+			Guéhi-CRYDEF
+			Benrahma-WHUMID
+			Kulusevski-TOTMID
+			Barnes-LEIMID
+			De Bruyne-MCIMID
+			Gray-EVEMID
+			Nketiah-ARSFWD
+			Diogo Jota-LIVFWD
+			Gelhardt-LEEFWD
+		Best Team Price 100
+		Best Team Total Points Per Minute 0.9698655206374287
+	*/
 }

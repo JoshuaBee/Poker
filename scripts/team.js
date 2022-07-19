@@ -151,6 +151,10 @@ let forward1Index = 0;
 let forward2Index = 0;
 let forward3Index = 0;
 
+let bestTeam = '';
+let bestTotalPointsPerFullSeason = 0;
+let bestTeamPrice = 0;
+
 
 onmessage = (e) => {
 	const { goalkeeper1Index } = e.data;
@@ -241,7 +245,7 @@ onmessage = (e) => {
 																continue;
 															}
 															
-															const total_points_per_full_season = 38 * 90 *(
+															const totalPointsPerFullSeason = 38 * 90 * (
 																goalkeeper1PointsPerMinute + 
 																goalkeeper2PointsPerMinute + 
 																defender1PointsPerMinute + 
@@ -259,9 +263,9 @@ onmessage = (e) => {
 																forward3PointsPerMinute
 															);
 															
-															if (total_points_per_minute > bestTotalPointsPerMinute) {
+															if (totalPointsPerFullSeason > bestTotalPointsPerFullSeason) {
 																bestTeamPrice = total_price;
-																bestTotalPointsPerMinute = total_points_per_minute;
+																bestTotalPointsPerFullSeason = totalPointsPerFullSeason;
 																bestTeam = goalkeeper1.name + 
 																goalkeeper2.name + 
 																defender1.name + 
@@ -295,5 +299,5 @@ onmessage = (e) => {
 		}
 	//}
 
-	postMessage({ bestTeam, bestTeamPrice, bestTotalPointsPerMinute });
+	postMessage({ bestTeam, bestTeamPrice, bestTotalPointsPerFullSeason });
 }
