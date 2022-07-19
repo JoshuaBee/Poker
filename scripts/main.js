@@ -1270,7 +1270,7 @@ function runPremierLeague() {
 	let forward3Index = 0;
 
 	let bestTeam = '';
-	let bestTotalPointsPerMinute = 0;
+	let bestTotalPointsPerFullSeason = 0;
 	let bestTeamPrice = 0;
 
 	// Loop over the goalkeepers
@@ -1282,13 +1282,13 @@ function runPremierLeague() {
 		});
 
 		teamWorker.onmessage = (e) => {
-			const { bestTeam, bestTeamPrice, bestTotalPointsPerMinute } = e.data;
+			const { bestTeam, bestTeamPrice, bestTotalPointsPerFullSeason } = e.data;
 
 			teamWorker.terminate();
 
 			console.log('Best Team', bestTeam);
 			console.log('Best Team Price', bestTeamPrice);
-			console.log('Best Team Total Points Per Minute', bestTotalPointsPerMinute);
+			console.log('Best Team Total Points Per Full Season', bestTotalPointsPerFullSeason);
 		}
 	}
 
