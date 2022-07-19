@@ -21,7 +21,6 @@ let bestTotalPointsPerFullSeason = 0;
 let bestTeamPrice = 0;
 
 
-
 onmessage = (e) => {
 	const {
 		goalkeepers,
