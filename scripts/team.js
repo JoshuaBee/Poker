@@ -99,7 +99,6 @@ const forwards = [
 	{name:'Gelhardt-LEEFWD',price:5.5,points:43,minutes:733},
 
 	{name:'Edouard-CRYFWD',price:5.5,points:87,minutes:1554},
-	{name:'Diogo Jota-LIVFWD',price:9,points:175,minutes:2357},
 	{name:'Jesus-ARSFWD',price:8,points:120,minutes:1871},
 	{name:'Ings-AVLFWD',price:7,points:106,minutes:1891},
 	{name:'Firmino-LIVFWD',price:8,points:62,minutes:980},
@@ -119,6 +118,7 @@ const forwards = [
 	{name:'Richarlison-TOTFWD',price:8.5,points:125,minutes:2522},
 	{name:'Jiménez-WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane-TOTFWD',price:11.5,points:192,minutes:3231},
+	//{name:'Diogo Jota-LIVFWD',price:9,points:175,minutes:2357},
 	//{name:'Nketiah-ARSFWD',price:7,points:55,minutes:823},
 	//{name:'Daka-LEIFWD',price:6,points:70,minutes:1152},
 	//{name:'Iheanacho-LEIFWD',price:6.5,points:80,minutes:1253},
