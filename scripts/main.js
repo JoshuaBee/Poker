@@ -1239,7 +1239,7 @@ const forwards = [
 	{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
-	//{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
+	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
 	//{name:'Nketiah---ARSFWD',price:7,points:55,minutes:823},
 	//{name:'Daka---LEIFWD',price:6,points:70,minutes:1152},
 	//{name:'Iheanacho---LEIFWD',price:6.5,points:80,minutes:1253},
