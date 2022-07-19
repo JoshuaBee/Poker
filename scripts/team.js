@@ -74,22 +74,22 @@ onmessage = (e) => {
 							const defender5Team = defender5.name.split('---')[1].substring(0, 3);
 
 							// Loop over the midfielders
-							for (midfielder1Index = 1; midfielder1Index < midfielderCount - 3; midfielder1Index++) {
+							for (midfielder1Index = 1; midfielder1Index < midfielderCount - 4; midfielder1Index++) {
 								const midfielder1 = midfielders[midfielder1Index];
 								const midfielder1PointsPerMinute = midfielder1.points / midfielder1.minutes;
 								const midfielder1Team = midfielder1.name.split('---')[1].substring(0, 3);
 
-								for (midfielder2Index = midfielder1Index + 1; midfielder2Index < midfielderCount - 2; midfielder2Index++) {
+								for (midfielder2Index = midfielder1Index + 1; midfielder2Index < midfielderCount - 3; midfielder2Index++) {
 									const midfielder2 = midfielders[midfielder2Index];
 									const midfielder2PointsPerMinute = midfielder2.points / midfielder2.minutes;
 									const midfielder2Team = midfielder2.name.split('---')[1].substring(0, 3);
 
-									for (midfielder3Index = midfielder2Index + 1; midfielder3Index < midfielderCount - 1; midfielder3Index++) {
+									for (midfielder3Index = midfielder2Index + 1; midfielder3Index < midfielderCount - 2; midfielder3Index++) {
 										const midfielder3 = midfielders[midfielder3Index];
 										const midfielder3PointsPerMinute = midfielder3.points / midfielder3.minutes;
 										const midfielder3Team = midfielder3.name.split('---')[1].substring(0, 3);
 
-										for (midfielder4Index = midfielder3Index + 1; midfielder4Index < midfielderCount; midfielder4Index++) {
+										for (midfielder4Index = midfielder3Index + 1; midfielder4Index < midfielderCount - 1; midfielder4Index++) {
 											const midfielder4 = midfielders[midfielder4Index];
 											const midfielder4PointsPerMinute = midfielder4.points / midfielder4.minutes;
 											const midfielder4Team = midfielder4.name.split('---')[1].substring(0, 3);
@@ -101,12 +101,12 @@ onmessage = (e) => {
 												const midfielder5Team = midfielder5.name.split('---')[1].substring(0, 3);
 
 												// Loop over the forwards
-												for (forward1Index = 1; forward1Index < forwardCount - 1; forward1Index++) {
+												for (forward1Index = 1; forward1Index < forwardCount - 2; forward1Index++) {
 													const forward1 = forwards[forward1Index];
 													const forward1PointsPerMinute = forward1.points / forward1.minutes;
 													const forward1Team = forward1.name.split('---')[1].substring(0, 3);
 				
-													for (forward2Index = forward1Index + 1; forward2Index < forwardCount; forward2Index++) {
+													for (forward2Index = forward1Index + 1; forward2Index < forwardCount - 1; forward2Index++) {
 														const forward2 = forwards[forward2Index];
 														const forward2PointsPerMinute = forward2.points / forward2.minutes;
 														const forward2Team = forward2.name.split('---')[1].substring(0, 3);
