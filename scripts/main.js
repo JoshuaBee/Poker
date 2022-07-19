@@ -1222,7 +1222,7 @@ const forwards = [
 	{name:'Jesus---ARSFWD',price:8,points:120,minutes:1871},
 	{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
 	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
-	/* {name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
+	{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
 	{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
 	{name:'Havertz---CHEFWD',price:8,points:112,minutes:1802},
 	{name:'Wilson---NEWFWD',price:7.5,points:75,minutes:1386},
@@ -1235,7 +1235,7 @@ const forwards = [
 	{name:'Werner---CHEFWD',price:8,points:62,minutes:1278},
 	{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
-	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231}, */
+	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
 	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
