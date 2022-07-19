@@ -1239,7 +1239,6 @@ const forwards = [
 	{name:'Haaland1---MCIFWD',price:11.5,points:200,minutes:3420},
 	{name:'Haaland2---MCIFWD',price:11.5,points:250,minutes:3420},
 	{name:'Haaland3---MCIFWD',price:11.5,points:300,minutes:3420},
-	{name:'Haaland4---MCIFWD',price:11.5,points:350,minutes:3420},
 	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
@@ -1457,7 +1456,7 @@ function runPremierLeague() {
 	*/
 
 	/*
-		Seventh Run
+		Seventh Run: Haaland scores 400 points
 		Guess some new players scores
 		
 		Best Team:
@@ -1465,5 +1464,14 @@ function runPremierLeague() {
 
 		Best Team Price 100
 		Best Team Total Points Per Full Season 3801.6117194420635
+	*/
+
+	/*
+		Eigth Run: Haaland scores 350 points
+		Guess some new players scores
+		
+		Best Team Sá---WOLGKPGuaita---CRYGKPChalobah---CHEDEFJames---CHEDEFRobertson---LIVDEFAlexander-Arnold---LIVDEFGuéhi---CRYDEFBenrahma---WHUMIDKulusevski---TOTMIDBarnes---LEIMIDMaddison---LEIMIDGray---EVEMIDDiogo Jota---LIVFWDHaaland4---MCIFWDGelhardt---LEEFWD
+main.js:1308 Best Team Price 100
+main.js:1309 Best Team Total Points Per Full Season 3701.611719442064
 	*/
 }
