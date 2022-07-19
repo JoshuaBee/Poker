@@ -348,7 +348,6 @@ const $tableRiverTime = document.querySelector('.table-item[data-stage="RIVER"][
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	// bindEvents();
-	runPremierLeague();
 });
 
 
@@ -1239,7 +1238,7 @@ const forwards = [
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
-	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
+	//{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
 	//{name:'Nketiah---ARSFWD',price:7,points:55,minutes:823},
 	//{name:'Daka---LEIFWD',price:6,points:70,minutes:1152},
 	//{name:'Iheanacho---LEIFWD',price:6.5,points:80,minutes:1253},
@@ -1249,6 +1248,13 @@ const forwards = [
 	//{name:'Benteke---CRYFWD',price:5.5,points:58,minutes:1132},
 	//{name:'Broja---CHEFWD',price:5.5,points:92,minutes:1969},
 ];
+
+const b = document.createElement('button');
+b.innerHTML = 'Run PL';
+b.addEventListener('click', () => {
+	runPremierLeague;
+})
+document.appendChild(b);
 
 function runPremierLeague() {
 	const goalkeeperCount = goalkeepers.length;
@@ -1274,6 +1280,7 @@ function runPremierLeague() {
 	let bestTeam = '';
 	let bestTotalPointsPerFullSeason = 0;
 	let bestTeamPrice = 0;
+	const timer = performance.now();
 
 	// Loop over the goalkeepers
 	for (goalkeeper1Index = 1; goalkeeper1Index < goalkeeperCount; goalkeeper1Index++) {
@@ -1288,6 +1295,7 @@ function runPremierLeague() {
 
 			teamWorker.terminate();
 
+			console.log('Time', performance.now() - timer);
 			console.log('Best Team', bestTeam);
 			console.log('Best Team Price', bestTeamPrice);
 			console.log('Best Team Total Points Per Full Season', bestTotalPointsPerFullSeason);

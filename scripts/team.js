@@ -5,12 +5,12 @@ const goalkeepers = [
 	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
 
 	{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
-	{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
+	//{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
 	{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
 	{name:'Mendy---CHEGKP',price:5,points:130,minutes:3060},
 	{name:'Pickford---EVEGKP',price:4.5,points:116,minutes:3150},
 	{name:'Alisson---LIVGKP',price:5.5,points:176,minutes:3240},
-	{name:'Pope---NEWGKP',price:5,points:130,minutes:3240},
+	//{name:'Pope---NEWGKP',price:5,points:130,minutes:3240},
 	{name:'Martínez---AVLGKP',price:5,points:129,minutes:3240},
 	{name:'Sá---WOLGKP',price:5,points:146,minutes:3285},
 	{name:'Ederson---MCIGKP',price:5.5,points:155,minutes:3330},
@@ -33,23 +33,23 @@ const defenders = [
 	{name:'Alexander-Arnold---LIVDEF',price:7.5,points:208,minutes:2853},
 	{name:'Gabriel---ARSDEF',price:5,points:146,minutes:3063},
 	{name:'Van Dijk---LIVDEF',price:6.5,points:183,minutes:3060},
-	{name:'Thiago Silva---CHEDEF',price:5.5,points:130,minutes:2649},
+	//{name:'Thiago Silva---CHEDEF',price:5.5,points:130,minutes:2649},
 	{name:'Cash---AVLDEF',price:5,points:147,minutes:3337},
 	{name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
 	{name:'Mings---AVLDEF',price:4.5,points:118,minutes:3188},
 	{name:'Jansson---BREDEF',price:4.5,points:122,minutes:3321},
 	{name:'Cucurella---BHADEF',price:5,points:126,minutes:3089},
-	{name:'Bednarek---SOUDEF',price:4.5,points:94,minutes:2629},
+	//{name:'Bednarek---SOUDEF',price:4.5,points:94,minutes:2629},
 	{name:'Mitchell---CRYDEF',price:4.5,points:109,minutes:3101},
-	{name:'Canós---BREDEF',price:5,points:81,minutes:2077},
-	{name:'Pinnock---BREDEF',price:4.5,points:90,minutes:2694},
+	//{name:'Canós---BREDEF',price:5,points:81,minutes:2077},
+	//{name:'Pinnock---BREDEF',price:4.5,points:90,minutes:2694},
 	{name:'Targett---NEWDEF',price:5,points:101,minutes:2871},
-	{name:'Walker---Peters---SOUDEF',price:4.5,points:82,minutes:2630},
+	{name:'Walker-Peters---SOUDEF',price:4.5,points:82,minutes:2630},
 	{name:'Digne---AVLDEF',price:5,points:83,minutes:2440},
-	{name:'Dawson---WHUDEF',price:5,points:90,minutes:2752},
+	//{name:'Dawson---WHUDEF',price:5,points:90,minutes:2752},
 	{name:'Tarkowski---EVEDEF',price:4.5,points:83,minutes:3106},
-	{name:'Dallas---LEEDEF',price:5,points:80,minutes:2920},
-	{name:'Salisu---SOUDEF',price:4.5,points:58,minutes:2971},
+	//{name:'Dallas---LEEDEF',price:5,points:80,minutes:2920},
+	//{name:'Salisu---SOUDEF',price:4.5,points:58,minutes:2971},
 	//{name:'Reguilón---TOTDEF',price:4.5,points:104,minutes:1914},
 	//{name:'Alonso---CHEDEF',price:5.5,points:128,minutes:2164},
 	//{name:'Cancelo---MCIDEF',price:7,points:201,minutes:3227},
@@ -72,19 +72,19 @@ const midfielders = [
 	{name:'Gross---BHAMID',price:5.5,points:88,minutes:2033},
 	{name:'Zaha---CRYMID',price:7,points:150,minutes:2759},
 	{name:'Trossard---BHAMID',price:6.5,points:141,minutes:2803},
-	{name:'Sterling---MCIMID',price:10,points:163,minutes:2121},
+	//{name:'Sterling---MCIMID',price:10,points:163,minutes:2121},
 	{name:'Fornals---WHUMID',price:5.5,points:117,minutes:2795},
 	{name:'Ward-Prowse---SOUMID',price:6.5,points:159,minutes:3215},
 	{name:'Saka---ARSMID',price:8,points:179,minutes:2978},
 	{name:'De Bruyne---MCIMID',price:12,points:196,minutes:2196},
 	{name:'Salah---LIVMID',price:13,points:265,minutes:2758},
-	{name:'Rodri---MCIMID',price:6,points:127,minutes:2884},
+	//{name:'Rodri---MCIMID',price:6,points:127,minutes:2884},
 	{name:'Ødegaard---ARSMID',price:6.5,points:131,minutes:2782},
 	{name:'Son---TOTMID',price:12,points:258,minutes:3009},
 	{name:'Tielemans---LEIMID',price:6.5,points:120,minutes:2629},
 	{name:'McGinn---AVLMID',price:5.5,points:110,minutes:3090},
 	{name:'Grealish---MCIMID',price:7,points:86,minutes:1910},
-	{name:'Saint---Maximin---NEWMID',price:6.5,points:116,minutes:2804},
+	{name:'Saint-Maximin---NEWMID',price:6.5,points:116,minutes:2804},
 	{name:'Fernandes---MUNMID',price:10,points:151,minutes:3110},
 	//{name:'Mahrez---MCIMID',price:8,points:135,minutes:1485},
 	//{name:'Gündogan---MCIMID',price:7.5,points:124,minutes:1851},
@@ -102,10 +102,10 @@ const forwards = [
 	{name:'Jesus---ARSFWD',price:8,points:120,minutes:1871},
 	{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
 	{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
-	{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
+	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
 	{name:'Havertz---CHEFWD',price:8,points:112,minutes:1802},
-	{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
+	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	{name:'Wilson---NEWFWD',price:7.5,points:75,minutes:1386},
 	{name:'Toney---BREFWD',price:7,points:139,minutes:2908},
 	{name:'Mbeumo---BREFWD',price:6,points:119,minutes:2905},
@@ -115,10 +115,10 @@ const forwards = [
 	{name:'Ronaldo---MUNFWD',price:10.5,points:159,minutes:2454},
 	{name:'Werner---CHEFWD',price:8,points:62,minutes:1278},
 	{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
-	{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
+	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
-	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
+	//{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
 	//{name:'Nketiah---ARSFWD',price:7,points:55,minutes:823},
 	//{name:'Daka---LEIFWD',price:6,points:70,minutes:1152},
 	//{name:'Iheanacho---LEIFWD',price:6.5,points:80,minutes:1253},
@@ -161,85 +161,85 @@ onmessage = (e) => {
 
 	const goalkeeper1 = goalkeepers[goalkeeper1Index];
 	const goalkeeper1PointsPerMinute = goalkeeper1.points / goalkeeper1.minutes;
-	const goalkeeper1Team = goalkeeper1.name.split('---')[1].substring(0, 3);
+	// const goalkeeper1Team = goalkeeper1.name.split('---')[1].substring(0, 3);
 
 	/*for (goalkeeper2Index = goalkeeper1Index + 1; goalkeeper2Index < goalkeeperCount; goalkeeper2Index++) {*/
 		goalkeeper2Index = 0;
 		const goalkeeper2 = goalkeepers[goalkeeper2Index];
 		const goalkeeper2PointsPerMinute = goalkeeper2.points / goalkeeper2.minutes;
-		const goalkeeper2Team = goalkeeper2.name.split('---')[1].substring(0, 3);
+		// const goalkeeper2Team = goalkeeper2.name.split('---')[1].substring(0, 3);
 
 		// Loop over the defenders
 		for (defender1Index = 1; defender1Index < defenderCount - 3; defender1Index++) {
 			const defender1 = defenders[defender1Index];
-			console.log(goalkeeper1.name, `${Math.floor(100 * defender1Index / defenderCount - 4)}%, `);
+			const timer = performance.now();
 			const defender1PointsPerMinute = defender1.points / defender1.minutes;
-			const defender1Team = defender1.name.split('---')[1].substring(0, 3);
+			// const defender1Team = defender1.name.split('---')[1].substring(0, 3);
 
 			for (defender2Index = defender1Index + 1; defender2Index < defenderCount - 2; defender2Index++) {
 				const defender2 = defenders[defender2Index];
 				const defender2PointsPerMinute = defender2.points / defender2.minutes;
-				const defender2Team = defender2.name.split('---')[1].substring(0, 3);
+				// const defender2Team = defender2.name.split('---')[1].substring(0, 3);
 
 				for (defender3Index = defender2Index + 1; defender3Index < defenderCount - 1; defender3Index++) {
 					const defender3 = defenders[defender3Index];
 					const defender3PointsPerMinute = defender3.points / defender3.minutes;
-					const defender3Team = defender3.name.split('---')[1].substring(0, 3);
+					// const defender3Team = defender3.name.split('---')[1].substring(0, 3);
 
 					for (defender4Index = defender3Index + 1; defender4Index < defenderCount; defender4Index++) {
 						const defender4 = defenders[defender4Index];
 						const defender4PointsPerMinute = defender4.points / defender4.minutes;
-						const defender4Team = defender4.name.split('---')[1].substring(0, 3);
+						// const defender4Team = defender4.name.split('---')[1].substring(0, 3);
 
 						/*for (defender5Index = defender4Index + 1; defender5Index < defenderCount; defender5Index++) {*/
 							defender5Index = 0;
 							const defender5 = defenders[defender5Index];
 							const defender5PointsPerMinute = defender5.points / defender5.minutes;
-							const defender5Team = defender5.name.split('---')[1].substring(0, 3);
+							// const defender5Team = defender5.name.split('---')[1].substring(0, 3);
 
 							// Loop over the midfielders
 							for (midfielder1Index = 1; midfielder1Index < midfielderCount - 3; midfielder1Index++) {
 								const midfielder1 = midfielders[midfielder1Index];
 								const midfielder1PointsPerMinute = midfielder1.points / midfielder1.minutes;
-								const midfielder1Team = midfielder1.name.split('---')[1].substring(0, 3);
+								// const midfielder1Team = midfielder1.name.split('---')[1].substring(0, 3);
 
 								for (midfielder2Index = midfielder1Index + 1; midfielder2Index < midfielderCount - 2; midfielder2Index++) {
 									const midfielder2 = midfielders[midfielder2Index];
 									const midfielder2PointsPerMinute = midfielder2.points / midfielder2.minutes;
-									const midfielder2Team = midfielder2.name.split('---')[1].substring(0, 3);
+									// const midfielder2Team = midfielder2.name.split('---')[1].substring(0, 3);
 
 									for (midfielder3Index = midfielder2Index + 1; midfielder3Index < midfielderCount - 1; midfielder3Index++) {
 										const midfielder3 = midfielders[midfielder3Index];
 										const midfielder3PointsPerMinute = midfielder3.points / midfielder3.minutes;
-										const midfielder3Team = midfielder3.name.split('---')[1].substring(0, 3);
+										// const midfielder3Team = midfielder3.name.split('---')[1].substring(0, 3);
 
 										for (midfielder4Index = midfielder3Index + 1; midfielder4Index < midfielderCount; midfielder4Index++) {
 											const midfielder4 = midfielders[midfielder4Index];
 											const midfielder4PointsPerMinute = midfielder4.points / midfielder4.minutes;
-											const midfielder4Team = midfielder4.name.split('---')[1].substring(0, 3);
+											// const midfielder4Team = midfielder4.name.split('---')[1].substring(0, 3);
 
 											/*for (midfielder5Index = midfielder4Index + 1; midfielder5Index < midfielderCount; midfielder5Index++) {*/
 												midfielder5Index = 0;
 												const midfielder5 = midfielders[midfielder5Index];
 												const midfielder5PointsPerMinute = midfielder5.points / midfielder5.minutes;
-												const midfielder5Team = midfielder5.name.split('---')[1].substring(0, 3);
+												// const midfielder5Team = midfielder5.name.split('---')[1].substring(0, 3);
 
 												// Loop over the forwards
 												for (forward1Index = 1; forward1Index < forwardCount - 1; forward1Index++) {
 													const forward1 = forwards[forward1Index];
 													const forward1PointsPerMinute = forward1.points / forward1.minutes;
-													const forward1Team = forward1.name.split('---')[1].substring(0, 3);
+													// const forward1Team = forward1.name.split('---')[1].substring(0, 3);
 				
 													for (forward2Index = forward1Index + 1; forward2Index < forwardCount; forward2Index++) {
 														const forward2 = forwards[forward2Index];
 														const forward2PointsPerMinute = forward2.points / forward2.minutes;
-														const forward2Team = forward2.name.split('---')[1].substring(0, 3);
+														// const forward2Team = forward2.name.split('---')[1].substring(0, 3);
 				
 														/*for (forward3Index = forward2Index + 1; forward3Index < forwardCount; forward3Index++) {*/
 															forward3Index = 0;
 															const forward3 = forwards[forward3Index];
 															const forward3PointsPerMinute = forward3.points / forward3.minutes;
-															const forward3Team = forward3.name.split('---')[1].substring(0, 3);
+															// const forward3Team = forward3.name.split('---')[1].substring(0, 3);
 															
 															const total_price = goalkeeper1.price + 
 																goalkeeper2.price + 
@@ -263,7 +263,7 @@ onmessage = (e) => {
 															}
 
 															// Maximum of 3 players from the same team.
-															const teamsArray = [
+															/* const teamsArray = [
 																goalkeeper1Team,
 																goalkeeper2Team,
 																defender1Team,
@@ -296,7 +296,7 @@ onmessage = (e) => {
 
 															if (tooManyFromOneTeam) {
 																continue;
-															}
+															} */
 															
 															let totalPointsPerFullSeason = 38 * 90 * (
 																goalkeeper1PointsPerMinute + 
@@ -371,6 +371,8 @@ onmessage = (e) => {
 					}
 				}
 			}
+
+			console.log(goalkeeper1.name, `${Math.floor(100 * defender1Index / defenderCount - 4)}%`, `${performance.now() - timer}ms`);
 		}
 	//}
 
