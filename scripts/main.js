@@ -1287,6 +1287,10 @@ function runPremierLeague() {
 		const teamWorker = new Worker("./scripts/team.js");
 
 		teamWorker.postMessage({
+			goalkeepers,
+			defenders,
+			midfielders,
+			forwards,
 			goalkeeper1Index
 		});
 
