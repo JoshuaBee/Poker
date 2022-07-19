@@ -68,7 +68,7 @@ const midfielders = [
 	{name:'Maddison---LEIMID',price:8,points:181,minutes:2454},
 	{name:'Díaz---LIVMID',price:8,points:64,minutes:957},
 	{name:'Salah---LIVMID',price:13,points:265,minutes:2758},
-	/* {name:'Mount---CHEMID',price:8,points:169,minutes:2358},
+	{name:'Mount---CHEMID',price:8,points:169,minutes:2358},
 	{name:'Bowen---WHUMID',price:8.5,points:206,minutes:2987},
 	{name:'Gross---BHAMID',price:5.5,points:88,minutes:2033},
 	{name:'Zaha---CRYMID',price:7,points:150,minutes:2759},
@@ -83,7 +83,7 @@ const midfielders = [
 	{name:'McGinn---AVLMID',price:5.5,points:110,minutes:3090},
 	{name:'Grealish---MCIMID',price:7,points:86,minutes:1910},
 	{name:'Saint-Maximin---NEWMID',price:6.5,points:116,minutes:2804},
-	{name:'Fernandes---MUNMID',price:10,points:151,minutes:3110}, */
+	{name:'Fernandes---MUNMID',price:10,points:151,minutes:3110},
 	//{name:'Sterling---MCIMID',price:10,points:163,minutes:2121},
 	//{name:'Rodri---MCIMID',price:6,points:127,minutes:2884},
 	//{name:'Mahrez---MCIMID',price:8,points:135,minutes:1485},
