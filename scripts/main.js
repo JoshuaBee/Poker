@@ -1236,6 +1236,11 @@ const forwards = [
 	{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
 	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
+	{name:'Haaland1---MCIFWD',price:11.5,points:200,minutes:3420},
+	{name:'Haaland2---MCIFWD',price:11.5,points:250,minutes:3420},
+	{name:'Haaland3---MCIFWD',price:11.5,points:300,minutes:3420},
+	{name:'Haaland4---MCIFWD',price:11.5,points:350,minutes:3420},
+	{name:'Haaland5---MCIFWD',price:11.5,points:400,minutes:3420},
 	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
@@ -1430,5 +1435,32 @@ function runPremierLeague() {
 	/*
 		Sixth Run
 		Locking the defence
+
+		Best Team:
+			Raya---BREGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Maddison---LEIMID
+			Salah---LIVMID
+			Gray---EVEMID
+			Edouard---CRYFWD
+			Vardy---LEIFWD
+			Gelhardt---LEEFWD
+
+		Best Team Price 100
+		Best Team Total Points Per Full Season 3623.699371782082
+	*/
+
+	/*
+		Seventh Run
+		Guess some new players scores
+		
+
 	*/
 }
