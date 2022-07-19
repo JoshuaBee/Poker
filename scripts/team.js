@@ -372,7 +372,7 @@ onmessage = (e) => {
 				}
 			}
 
-			console.log(goalkeeper1.name, `${Math.floor(100 * defender1Index / defenderCount - 4)}%`, `${performance.now() - timer}ms`);
+			console.log(goalkeeper1.name, `${Math.floor(100 * (defender1Index / (defenderCount - 4)))}%`, `${Math.floor((performance.now() - timer) / 1000)}s`);
 		}
 	//}
 

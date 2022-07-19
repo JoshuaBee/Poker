@@ -1295,7 +1295,7 @@ function runPremierLeague() {
 
 			teamWorker.terminate();
 
-			console.log('Time', performance.now() - timer);
+			console.log('Total Time', `${Math.floor((performance.now() - timer) / 1000)}s`);
 			console.log('Best Team', bestTeam);
 			console.log('Best Team Price', bestTeamPrice);
 			console.log('Best Team Total Points Per Full Season', bestTotalPointsPerFullSeason);
