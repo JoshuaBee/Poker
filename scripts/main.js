@@ -1253,8 +1253,8 @@ const b = document.createElement('button');
 b.innerHTML = 'Run PL';
 b.addEventListener('click', () => {
 	runPremierLeague;
-})
-document.appendChild(b);
+});
+document.quertSelector('main').appendChild(b);
 
 function runPremierLeague() {
 	const goalkeeperCount = goalkeepers.length;
