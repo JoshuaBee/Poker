@@ -1154,7 +1154,7 @@ const defenders = [
 	{name:'Alexander-Arnold---LIVDEF',price:7.5,points:208,minutes:2853},
 	{name:'Gabriel---ARSDEF',price:5,points:146,minutes:3063},
 	{name:'Cash---AVLDEF',price:5,points:147,minutes:3337},
-	/* {name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
+	{name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
 	{name:'Mings---AVLDEF',price:4.5,points:118,minutes:3188},
 	{name:'Jansson---BREDEF',price:4.5,points:122,minutes:3321},
 	{name:'Cucurella---BHADEF',price:5,points:126,minutes:3089},
@@ -1162,7 +1162,7 @@ const defenders = [
 	{name:'Targett---NEWDEF',price:5,points:101,minutes:2871},
 	{name:'Walker-Peters---SOUDEF',price:4.5,points:82,minutes:2630},
 	{name:'Digne---AVLDEF',price:5,points:83,minutes:2440},
-	{name:'Tarkowski---EVEDEF',price:4.5,points:83,minutes:3106}, */
+	{name:'Tarkowski---EVEDEF',price:4.5,points:83,minutes:3106},
 	//{name:'Thiago Silva---CHEDEF',price:5.5,points:130,minutes:2649},
 	//{name:'Bednarek---SOUDEF',price:4.5,points:94,minutes:2629},
 	//{name:'Canós---BREDEF',price:5,points:81,minutes:2077},
