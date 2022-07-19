@@ -1124,7 +1124,7 @@ const goalkeepers = [
 	// My Cheap Selection
 	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
 
-	{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
+	//{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
 	//{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
 	{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
 	{name:'Mendy---CHEGKP',price:5,points:130,minutes:3060},
@@ -1380,5 +1380,29 @@ function runPremierLeague() {
 
 	/*
 		Best Without Vardy and without cheapest MID and FWD...
+
+		Best Team:
+			Raya---BREGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Maddison---LEIMID
+			Salah---LIVMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+		
+		Best Team Price 100
+		Best Team Total Points Per Full Season 3658.946046875882
+	*/
+
+	/*
+		Best Without Raya...
 	*/
 }
