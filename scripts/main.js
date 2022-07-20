@@ -1249,6 +1249,41 @@ const forwards = [
 	//{name:'Broja---CHEFWD',price:5.5,points:92,minutes:1969},
 ];
 
+/* 
+11 = 20%
+12 = 15%
+13 = 10%
+14 = 5%
+15 = 0%
+16 = -5%
+17 = -10%
+*/
+
+const averageFixtureDifficulty = 15;
+const fixtureDifficultyBoost = 5; // In %
+const fixtureDifficulty = {
+	'ARS': fixtureDifficultyBoost * (averageFixtureDifficulty - 11) / 100,
+	'AVL': fixtureDifficultyBoost * (averageFixtureDifficulty - 13) / 100,
+	'BOU': fixtureDifficultyBoost * (averageFixtureDifficulty - 17) / 100,
+	'BRE': fixtureDifficultyBoost * (averageFixtureDifficulty - 13) / 100,
+	'BHA': fixtureDifficultyBoost * (averageFixtureDifficulty - 14) / 100,
+	'CHE': fixtureDifficultyBoost * (averageFixtureDifficulty - 12) / 100,
+	'CRY': fixtureDifficultyBoost * (averageFixtureDifficulty - 17) / 100,
+	'EVE': fixtureDifficultyBoost * (averageFixtureDifficulty - 12) / 100,
+	'FUL': fixtureDifficultyBoost * (averageFixtureDifficulty - 15) / 100,
+	'LEE': fixtureDifficultyBoost * (averageFixtureDifficulty - 12) / 100,
+	'LEI': fixtureDifficultyBoost * (averageFixtureDifficulty - 15) / 100,
+	'LIV': fixtureDifficultyBoost * (averageFixtureDifficulty - 13) / 100,
+	'MCI': fixtureDifficultyBoost * (averageFixtureDifficulty - 12) / 100,
+	'MUN': fixtureDifficultyBoost * (averageFixtureDifficulty - 15) / 100,
+	'NEW': fixtureDifficultyBoost * (averageFixtureDifficulty - 16) / 100,
+	'NFO': fixtureDifficultyBoost * (averageFixtureDifficulty - 16) / 100,
+	'SOU': fixtureDifficultyBoost * (averageFixtureDifficulty - 17) / 100,
+	'TOT': fixtureDifficultyBoost * (averageFixtureDifficulty - 13) / 100,
+	'WHU': fixtureDifficultyBoost * (averageFixtureDifficulty - 14) / 100,
+	'WOL': fixtureDifficultyBoost * (averageFixtureDifficulty - 13) / 100,
+}
+
 const b = document.createElement('button');
 b.innerHTML = 'Run PL';
 b.addEventListener('click', () => {
@@ -1291,6 +1326,7 @@ function runPremierLeague() {
 			defenders,
 			midfielders,
 			forwards,
+			fixtureDifficulty,
 			goalkeeper1Index
 		});
 
@@ -1400,9 +1436,5 @@ function runPremierLeague() {
 		
 		Best Team Price 100
 		Best Team Total Points Per Full Season 3658.946046875882
-	*/
-
-	/*
-		Best Without Raya...
 	*/
 }
