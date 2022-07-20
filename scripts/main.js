@@ -1331,14 +1331,14 @@ function runPremierLeague() {
 		});
 
 		teamWorker.onmessage = (e) => {
-			const { bestTeam, bestTeamPrice, bestTotalPointsPerFullSeason, count } = e.data;
+			const { bestTeam, bestTeamPrice, bestTotalPoints, count } = e.data;
 
 			teamWorker.terminate();
 
 			console.log('Total Time', `${Math.floor((performance.now() - timer) / 1000)}s`);
 			console.log('Best Team', bestTeam);
 			console.log('Best Team Price', bestTeamPrice);
-			console.log('Best Team Total Points Per Full Season', bestTotalPointsPerFullSeason);
+			console.log('Best Team Total Points', bestTotalPoints);
 			console.log('Unique Team Count', count);
 		}
 	}

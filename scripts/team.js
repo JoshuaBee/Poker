@@ -111,6 +111,8 @@ onmessage = (e) => {
 														for (forward3Index = forward2Index + 1; forward3Index < forwardCount; forward3Index++) {
 															const forward3 = forwards[forward3Index];
 															
+															count++;
+															
 															const total_price = goalkeeper1.price + 
 																goalkeeper2.price + 
 																defender1.price + 
@@ -229,7 +231,6 @@ onmessage = (e) => {
 																	forward3.name;
 															}
 
-															count++;
 															// console.log('total_price', total_price, total_points_per_minute);
 														}
 													}
