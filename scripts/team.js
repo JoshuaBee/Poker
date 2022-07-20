@@ -40,6 +40,7 @@ onmessage = (e) => {
 	const defenderCount = defenders.length;
 	const midfielderCount = midfielders.length;
 	const forwardCount = forwards.length;
+	let count = 0;
 
 	goalkeepers.forEach(goalkeeper => {
 		goalkeeper.team = goalkeeper.name.split('---')[1].substring(0, 3);
@@ -228,6 +229,7 @@ onmessage = (e) => {
 																	forward3.name;
 															}
 
+															count++;
 															// console.log('total_price', total_price, total_points_per_minute);
 														}
 													}
@@ -246,5 +248,5 @@ onmessage = (e) => {
 		}
 	//}
 
-	postMessage({ bestTeam, bestTeamPrice, bestTotalPoints });
+	postMessage({ bestTeam, bestTeamPrice, bestTotalPoints, count });
 }

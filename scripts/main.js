@@ -1152,11 +1152,11 @@ const defenders = [
 	{name:'Robertson---LIVDEF',price:7,points:186,minutes:2537},
 	//{name:'Matip---LIVDEF',price:6,points:170,minutes:2790},
 	{name:'Alexander-Arnold---LIVDEF',price:7.5,points:208,minutes:2853},
-	{name:'Gabriel---ARSDEF',price:5,points:146,minutes:3063},
-	{name:'Cash---AVLDEF',price:5,points:147,minutes:3337},
-	{name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
-	{name:'Mings---AVLDEF',price:4.5,points:118,minutes:3188},
-	{name:'Jansson---BREDEF',price:4.5,points:122,minutes:3321},
+	//{name:'Gabriel---ARSDEF',price:5,points:146,minutes:3063},
+	//{name:'Cash---AVLDEF',price:5,points:147,minutes:3337},
+	//{name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
+	//{name:'Mings---AVLDEF',price:4.5,points:118,minutes:3188},
+	//{name:'Jansson---BREDEF',price:4.5,points:122,minutes:3321},
 	//{name:'Cucurella---BHADEF',price:5,points:126,minutes:3089},
 	//{name:'Mitchell---CRYDEF',price:4.5,points:109,minutes:3101},
 	//{name:'Targett---NEWDEF',price:5,points:101,minutes:2871},
@@ -1331,7 +1331,7 @@ function runPremierLeague() {
 		});
 
 		teamWorker.onmessage = (e) => {
-			const { bestTeam, bestTeamPrice, bestTotalPointsPerFullSeason } = e.data;
+			const { bestTeam, bestTeamPrice, bestTotalPointsPerFullSeason, count } = e.data;
 
 			teamWorker.terminate();
 
@@ -1339,6 +1339,7 @@ function runPremierLeague() {
 			console.log('Best Team', bestTeam);
 			console.log('Best Team Price', bestTeamPrice);
 			console.log('Best Team Total Points Per Full Season', bestTotalPointsPerFullSeason);
+			console.log('Unique Team Count', count);
 		}
 	}
 
