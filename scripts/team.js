@@ -247,12 +247,13 @@ onmessage = (e) => {
 										}
 									}
 								}
-								console.log(goalkeeper1.name, `${Math.floor(100 * (defender1Index / (defenderCount - 4)))}%`, `${Math.floor((performance.now() - timer) / 1000)}s`);
 							}
 						}
 					}
 				}
 			}
+			
+			console.log(goalkeeper1.name, `${Math.floor(1000 * (defender1Index / (defenderCount - 4))) / 10}%`, `${Math.floor((performance.now() - timer) / 1000)}s`);
 		}
 	//}
 
