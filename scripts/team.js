@@ -72,7 +72,7 @@ onmessage = (e) => {
 					for (defender4Index = defender3Index + 1; defender4Index < defenderCount - 1; defender4Index++) {
 						const defender4 = defenders[defender4Index];
 						const defender4Team = defender4.name.split('---')[1].substring(0, 3);
-						const defender4Points = fixtureMinutes * fixtureDifficulty[defender4Team] * fixtureMinutes * fixtureDifficulty[defender1Team] * defender4.points / defender4.minutes;
+						const defender4Points = fixtureMinutes * fixtureDifficulty[defender4Team] * defender4.points / defender4.minutes;
 
 						for (defender5Index = defender4Index + 1; defender5Index < defenderCount; defender5Index++) {
 							const defender5 = defenders[defender5Index];
