@@ -1235,7 +1235,7 @@ const forwards = [
 	{name:'Werner---CHEFWD',price:8,points:62,minutes:1278},
 	{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
-	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
+	//{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
 	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},

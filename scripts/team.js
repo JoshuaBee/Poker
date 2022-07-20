@@ -21,7 +21,7 @@ let forward2Index = 0;
 let forward3Index = 0;
 
 let bestTeam = '';
-let bestTotalPointsPerFullSeason = 0;
+let bestTotalPoints = 0;
 let bestTeamPrice = 0;
 
 
@@ -42,89 +42,74 @@ onmessage = (e) => {
 
 	goalkeepers.forEach(goalkeeper => {
 		goalkeeper.team = goalkeeper.name.split('---')[1].substring(0, 3);
-		goalkeeper.fixtureDifficulty = fixtureDifficulty[goalkeeper.team];
+		goalkeeper.totalPoints = fixtureMinutes * fixtureDifficulty[goalkeeper.team] * goalkeeper.points / goalkeeper.minutes;
 	});
 
 	defenders.forEach(defender => {
 		defender.team = defender.name.split('---')[1].substring(0, 3);
-		defender.fixtureDifficulty = fixtureDifficulty[defender.team];
+		defender.totalPoints = fixtureMinutes * fixtureDifficulty[defender.team] * defender.points / defender.minutes;
 	});
 
 	midfielders.forEach(midfielder => {
 		midfielder.team = midfielder.name.split('---')[1].substring(0, 3);
-		midfielder.fixtureDifficulty = fixtureDifficulty[midfielder.team];
+		midfielder.totalPoints = fixtureMinutes * fixtureDifficulty[midfielder.team] * midfielder.points / midfielder.minutes;
 	});
 
 	forwards.forEach(forward => {
 		forward.team = forward.name.split('---')[1].substring(0, 3);
-		forward.fixtureDifficulty = fixtureDifficulty[forward.team];
+		forward.totalPoints = fixtureMinutes * fixtureDifficulty[forward.team] * forward.points / forward.minutes;
 	});
 
 	const fixtureMinutes = 90 * fixtureCount;
 
 	const goalkeeper1 = goalkeepers[goalkeeper1Index];
-	const goalkeeper1Points = fixtureMinutes * goalkeeper1.fixtureDifficulty * goalkeeper1.points / goalkeeper1.minutes;
 
 	/*for (goalkeeper2Index = goalkeeper1Index + 1; goalkeeper2Index < goalkeeperCount; goalkeeper2Index++) {*/
 		goalkeeper2Index = 0;
 		const goalkeeper2 = goalkeepers[goalkeeper2Index];
-		const goalkeeper2Points = fixtureMinutes * goalkeeper2.fixtureDifficulty * goalkeeper2.points / goalkeeper2.minutes;
 
 		// Loop over the defenders
 		for (defender1Index = 0; defender1Index < defenderCount - 4; defender1Index++) {
 			const defender1 = defenders[defender1Index];
 			const timer = performance.now();
-			const defender1Points = fixtureMinutes * defender1.fixtureDifficulty * defender1.points / defender1.minutes;
 
 			for (defender2Index = defender1Index + 1; defender2Index < defenderCount - 3; defender2Index++) {
 				const defender2 = defenders[defender2Index];
-				const defender2Points = fixtureMinutes * defender2.fixtureDifficulty * defender2.points / defender2.minutes;
 
 				for (defender3Index = defender2Index + 1; defender3Index < defenderCount - 2; defender3Index++) {
 					const defender3 = defenders[defender3Index];
-					const defender3Points = fixtureMinutes * defender3.fixtureDifficulty * defender3.points / defender3.minutes;
 
 					for (defender4Index = defender3Index + 1; defender4Index < defenderCount - 1; defender4Index++) {
 						const defender4 = defenders[defender4Index];
-						const defender4Points = fixtureMinutes * defender4.fixtureDifficulty * defender4.points / defender4.minutes;
 
 						for (defender5Index = defender4Index + 1; defender5Index < defenderCount; defender5Index++) {
 							const defender5 = defenders[defender5Index];
-							const defender5Points = fixtureMinutes * defender5.fixtureDifficulty * defender5.points / defender5.minutes;
 
 							// Loop over the midfielders
 							for (midfielder1Index = 0; midfielder1Index < midfielderCount - 4; midfielder1Index++) {
 								const midfielder1 = midfielders[midfielder1Index];
-								const midfielder1Points = fixtureMinutes * midfielder1.fixtureDifficulty * midfielder1.points / midfielder1.minutes;
 
 								for (midfielder2Index = midfielder1Index + 1; midfielder2Index < midfielderCount - 3; midfielder2Index++) {
 									const midfielder2 = midfielders[midfielder2Index];
-									const midfielder2Points = fixtureMinutes * midfielder2.fixtureDifficulty * midfielder2.points / midfielder2.minutes;
 
 									for (midfielder3Index = midfielder2Index + 1; midfielder3Index < midfielderCount - 2; midfielder3Index++) {
 										const midfielder3 = midfielders[midfielder3Index];
-										const midfielder3Points = fixtureMinutes * midfielder3.fixtureDifficulty * midfielder3.points / midfielder3.minutes;
 
 										for (midfielder4Index = midfielder3Index + 1; midfielder4Index < midfielderCount - 1; midfielder4Index++) {
 											const midfielder4 = midfielders[midfielder4Index];
-											const midfielder4Points = fixtureMinutes * midfielder4.fixtureDifficulty * midfielder4.points / midfielder4.minutes;
 
 											for (midfielder5Index = midfielder4Index + 1; midfielder5Index < midfielderCount; midfielder5Index++) {
 												const midfielder5 = midfielders[midfielder5Index];
-												const midfielder5Points = fixtureMinutes * midfielder5.fixtureDifficulty * midfielder5.points / midfielder5.minutes;
 
 												// Loop over the forwards
 												for (forward1Index = 0; forward1Index < forwardCount - 2; forward1Index++) {
 													const forward1 = forwards[forward1Index];
-													const forward1Points = fixtureMinutes * forward1.fixtureDifficulty * forward1.points / forward1.minutes;
 				
 													for (forward2Index = forward1Index + 1; forward2Index < forwardCount - 1; forward2Index++) {
 														const forward2 = forwards[forward2Index];
-														const forward2Points = fixtureMinutes * forward2.fixtureDifficulty * forward2.points / forward2.minutes;
 				
 														for (forward3Index = forward2Index + 1; forward3Index < forwardCount; forward3Index++) {
 															const forward3 = forwards[forward3Index];
-															const forward3Points = fixtureMinutes * forward3.fixtureDifficulty * forward3.points / forward3.minutes;
 															
 															const total_price = goalkeeper1.price + 
 																goalkeeper2.price + 
@@ -187,46 +172,46 @@ onmessage = (e) => {
 																continue;
 															}
 															
-															let totalPointsPerFullSeason = goalkeeper1Points + 
-																goalkeeper2Points + 
-																defender1Points + 
-																defender2Points + 
-																defender3Points + 
-																defender4Points + 
-																defender5Points + 
-																midfielder1Points + 
-																midfielder2Points + 
-																midfielder3Points + 
-																midfielder4Points + 
-																midfielder5Points + 
-																forward1Points + 
-																forward2Points + 
-																forward3Points;
+															let totalPoints = goalkeeper1.totalPoints + 
+																goalkeeper2.totalPoints + 
+																defender1.totalPoints + 
+																defender2.totalPoints + 
+																defender3.totalPoints + 
+																defender4.totalPoints + 
+																defender5.totalPoints + 
+																midfielder1.totalPoints + 
+																midfielder2.totalPoints + 
+																midfielder3.totalPoints + 
+																midfielder4.totalPoints + 
+																midfielder5.totalPoints + 
+																forward1.totalPoints + 
+																forward2.totalPoints + 
+																forward3.totalPoints;
 
 															// Captaincy
 															// Captain gets double points, and we want to apply that
 															// to the highest score over the season.
-															totalPointsPerFullSeason += Math.max(
-																goalkeeper1Points,
-																goalkeeper2Points,
-																defender1Points,
-																defender2Points,
-																defender3Points,
-																defender4Points,
-																defender5Points,
-																midfielder1Points,
-																midfielder2Points, 
-																midfielder3Points,
-																midfielder4Points,
-																midfielder5Points,
-																forward1Points,
-																forward2Points,
-																forward3Points
+															totalPoints += Math.max(
+																goalkeeper1.totalPoints,
+																goalkeeper2.totalPoints,
+																defender1.totalPoints,
+																defender2.totalPoints,
+																defender3.totalPoints,
+																defender4.totalPoints,
+																defender5.totalPoints,
+																midfielder1.totalPoints,
+																midfielder2.totalPoints, 
+																midfielder3.totalPoints,
+																midfielder4.totalPoints,
+																midfielder5.totalPoints,
+																forward1.totalPoints,
+																forward2.totalPoints,
+																forward3.totalPoints
 															);
 															
-															if (totalPointsPerFullSeason > bestTotalPointsPerFullSeason) {
+															if (totalPoints > bestTotalPoints) {
 																bestTeamPrice = total_price;
-																bestTotalPointsPerFullSeason = totalPointsPerFullSeason;
+																bestTotalPoints = totalPoints;
 																bestTeam = goalkeeper1.name + 
 																	goalkeeper2.name + 
 																	defender1.name + 
@@ -262,5 +247,5 @@ onmessage = (e) => {
 		}
 	//}
 
-	postMessage({ bestTeam, bestTeamPrice, bestTotalPointsPerFullSeason });
+	postMessage({ bestTeam, bestTeamPrice, bestTotalPoints });
 }
