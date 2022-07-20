@@ -1260,7 +1260,7 @@ const forwards = [
 */
 
 const averageFixtureDifficulty = 15;
-const fixtureDifficultyBoost = 5; // In %
+const fixtureDifficultyBoost = 2.5; // In %
 const fixtureDifficulty = {
 	'ARS': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 11))) / 100,
 	'AVL': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
@@ -1437,5 +1437,29 @@ function runPremierLeague() {
 		
 		Best Team Price 100
 		Best Team Total Points Per Full Season 3658.946046875882
+	*/
+
+	/*
+		Best with fixture difficulty boost of 5%
+
+		Best Team:
+			Alisson---LIVGKP
+			Guaita---CRYGKP
+			Guéhi---CRYDEF
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Mount---CHEMID
+			De Bruyne---MCIMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+
+		Best Team Price 100
+		Best Team Total Points 523.0972501277588
 	*/
 }
