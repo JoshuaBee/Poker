@@ -1,6 +1,7 @@
 // Constants
 
 const fixtureCount = 5;
+const fixtureMinutes = 90 * fixtureCount;
 
 // Variables
 
@@ -59,8 +60,6 @@ onmessage = (e) => {
 		forward.team = forward.name.split('---')[1].substring(0, 3);
 		forward.totalPoints = fixtureMinutes * fixtureDifficulty[forward.team] * forward.points / forward.minutes;
 	});
-
-	const fixtureMinutes = 90 * fixtureCount;
 
 	const goalkeeper1 = goalkeepers[goalkeeper1Index];
 
