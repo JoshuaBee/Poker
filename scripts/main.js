@@ -1124,13 +1124,11 @@ const goalkeepers = [
 	// My Cheap Selection
 	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
 
-	//{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
-	//{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
-	{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
+	{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
+	/*{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
 	{name:'Mendy---CHEGKP',price:5,points:130,minutes:3060},
 	{name:'Pickford---EVEGKP',price:4.5,points:116,minutes:3150},
 	{name:'Alisson---LIVGKP',price:5.5,points:176,minutes:3240},
-	//{name:'Pope---NEWGKP',price:5,points:130,minutes:3240},
 	{name:'Martínez---AVLGKP',price:5,points:129,minutes:3240},
 	{name:'Sá---WOLGKP',price:5,points:146,minutes:3285},
 	{name:'Ederson---MCIGKP',price:5.5,points:155,minutes:3330},
@@ -1139,19 +1137,21 @@ const goalkeepers = [
 	{name:'Schmeichel---LEIGKP',price:5,points:131,minutes:3330},
 	{name:'Meslier---LEEGKP',price:4.5,points:106,minutes:3384},
 	{name:'Lloris---TOTGKP',price:5.5,points:158,minutes:3420},
-	{name:'De Gea---MUNGKP',price:5,points:132,minutes:3420},
+	{name:'De Gea---MUNGKP',price:5,points:132,minutes:3420},*/
+	//{name:'Pope---NEWGKP',price:5,points:130,minutes:3240},
+	//{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
 ];
 
 const defenders = [
 	// My Cheap Selection
 	{name:'Guéhi---CRYDEF',price:4.5,points:123,minutes:3222},
 
-	//{name:'Van Dijk---LIVDEF',price:6.5,points:183,minutes:3060},
+	{name:'Alexander-Arnold---LIVDEF',price:7.5,points:208,minutes:2853},
 	{name:'Chalobah---CHEDEF',price:5,points:99,minutes:1447},
 	{name:'James---CHEDEF',price:6,points:141,minutes:1863},
 	{name:'Robertson---LIVDEF',price:7,points:186,minutes:2537},
+	//{name:'Van Dijk---LIVDEF',price:6.5,points:183,minutes:3060},
 	//{name:'Matip---LIVDEF',price:6,points:170,minutes:2790},
-	{name:'Alexander-Arnold---LIVDEF',price:7.5,points:208,minutes:2853},
 	//{name:'Gabriel---ARSDEF',price:5,points:146,minutes:3063},
 	//{name:'Cash---AVLDEF',price:5,points:147,minutes:3337},
 	//{name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
@@ -1186,8 +1186,8 @@ const midfielders = [
 	{name:'Kulusevski---TOTMID',price:8,points:99,minutes:1259},
 	{name:'Barnes---LEIMID',price:7,points:137,minutes:2095},
 	{name:'Maddison---LEIMID',price:8,points:181,minutes:2454},
-	{name:'Díaz---LIVMID',price:8,points:64,minutes:957},
 	{name:'Salah---LIVMID',price:13,points:265,minutes:2758},
+	/*{name:'Díaz---LIVMID',price:8,points:64,minutes:957},
 	{name:'Mount---CHEMID',price:8,points:169,minutes:2358},
 	{name:'Bowen---WHUMID',price:8.5,points:206,minutes:2987},
 	{name:'Gross---BHAMID',price:5.5,points:88,minutes:2033},
@@ -1198,7 +1198,7 @@ const midfielders = [
 	{name:'Saka---ARSMID',price:8,points:179,minutes:2978},
 	{name:'De Bruyne---MCIMID',price:12,points:196,minutes:2196},
 	{name:'Ødegaard---ARSMID',price:6.5,points:131,minutes:2782},
-	{name:'Son---TOTMID',price:12,points:258,minutes:3009},
+	{name:'Son---TOTMID',price:12,points:258,minutes:3009},*/
 	//{name:'Tielemans---LEIMID',price:6.5,points:120,minutes:2629},
 	//{name:'McGinn---AVLMID',price:5.5,points:110,minutes:3090},
 	//{name:'Grealish---MCIMID',price:7,points:86,minutes:1910},
@@ -1220,10 +1220,9 @@ const forwards = [
 
 	{name:'Edouard---CRYFWD',price:5.5,points:87,minutes:1554},
 	{name:'Jesus---ARSFWD',price:8,points:120,minutes:1871},
-	{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
+	/*{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
 	{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
 	{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
-	//{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
 	{name:'Havertz---CHEFWD',price:8,points:112,minutes:1802},
 	{name:'Wilson---NEWFWD',price:7.5,points:75,minutes:1386},
 	{name:'Toney---BREFWD',price:7,points:139,minutes:2908},
@@ -1235,7 +1234,8 @@ const forwards = [
 	{name:'Werner---CHEFWD',price:8,points:62,minutes:1278},
 	{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
 	{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
-	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
+	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},*/
+	//{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
 	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
 	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
 	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
@@ -1260,7 +1260,7 @@ const forwards = [
 */
 
 const averageFixtureDifficulty = 15;
-const fixtureDifficultyBoost = 2.5; // In %
+const fixtureDifficultyBoost = 5; // In %
 const fixtureDifficulty = {
 	'ARS': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 11))) / 100,
 	'AVL': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
