@@ -1127,8 +1127,9 @@ document.querySelector('main').appendChild(b);
 
 const goalkeepers = [
 	// My Cheap Selection
-	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
+	{name:'Ward---LEIGKP',price:4,points:119,minutes:3420},
 
+	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
 	{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
 	//{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
 	{name:'Mendy---CHEGKP',price:5,points:130,minutes:3060},
@@ -1459,5 +1460,26 @@ function runPremierLeague() {
 
 		Best Team Price 100
 		Best Team Total Points 523.0972501277588
+	*/
+
+	/*
+		Best Team:
+			Alisson---LIVGKP
+			Guaita---CRYGKP
+			Alexander-Arnold---LIVDEF
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Dias---MCIDEF
+			Gray---EVEMID
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Mount---CHEMID
+			De Bruyne---MCIMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+		Best Team Price 100
+		Best Team Total Points 532.0820595732876
 	*/
 }
