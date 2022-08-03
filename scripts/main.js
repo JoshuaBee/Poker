@@ -1127,9 +1127,7 @@ document.querySelector('main').appendChild(b);
 
 const goalkeepers = [
 	// My Cheap Selection
-	{name:'Ward---LEIGKP',price:4,points:119,minutes:2655},
-	{name:'Iveson---LEIGKP',price:4,points:119,minutes:2655},
-	/* {name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
+	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
 
 	{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
 	{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
@@ -1144,7 +1142,7 @@ const goalkeepers = [
 	{name:'Schmeichel---LEIGKP',price:5,points:131,minutes:3330},
 	{name:'Meslier---LEEGKP',price:4.5,points:106,minutes:3384},
 	{name:'Lloris---TOTGKP',price:5.5,points:158,minutes:3420},
-	{name:'De Gea---MUNGKP',price:5,points:132,minutes:3420}, */
+	{name:'De Gea---MUNGKP',price:5,points:132,minutes:3420},
 	//{name:'Pope---NEWGKP',price:5,points:130,minutes:3240},
 	//{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
 ];
@@ -1266,8 +1264,8 @@ const forwards = [
 17 = -10%
 */
 
-const averageFixtureDifficulty = 15;
-const fixtureDifficultyBoost = 5; // In %
+const averageFixtureDifficulty = 17;
+const fixtureDifficultyBoost = 2.5; // In %
 const fixtureDifficulty = {
 	'ARS': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 11))) / 100,
 	'AVL': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
