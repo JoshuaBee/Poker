@@ -1115,3 +1115,392 @@ window.addEventListener('appinstalled', (event) => {
 	console.log('a2hs installed');
 	document.getElementById('installButtonTrigger').setAttribute('aria-hidden', true);
 });
+
+const button = document.createElement('button');
+button.innerHTML = 'RUN';
+button.addEventListener('click', () => {
+	runPremierLeague();
+});
+document.querySelector('main').appendChild(button);
+
+// CONSTANTS
+
+const goalkeepers = [
+	// My Cheap Selection
+	{name:'Ward---LEIGKP',price:4,points:119,minutes:3420},
+
+	{name:'Guaita---CRYGKP',price:4.5,points:119,minutes:2655},
+	{name:'Raya---BREGKP',price:4.5,points:95,minutes:2160},
+	//{name:'Ramsdale---ARSGKP',price:5,points:135,minutes:3060},
+	{name:'Mendy---CHEGKP',price:5,points:130,minutes:3060},
+	//{name:'Pickford---EVEGKP',price:4.5,points:116,minutes:3150},
+	{name:'Alisson---LIVGKP',price:5.5,points:176,minutes:3240},
+	//{name:'Martínez---AVLGKP',price:5,points:129,minutes:3240},
+	//{name:'Sá---WOLGKP',price:5,points:146,minutes:3285},
+	{name:'Ederson---MCIGKP',price:5.5,points:155,minutes:3330},
+	{name:'Sánchez---BHAGKP',price:4.5,points:126,minutes:3330},
+	//{name:'Fabianski---WHUGKP',price:5,points:136,minutes:3330},
+	//{name:'Meslier---LEEGKP',price:4.5,points:106,minutes:3384},
+	//{name:'Lloris---TOTGKP',price:5.5,points:158,minutes:3420},
+	//{name:'De Gea---MUNGKP',price:5,points:132,minutes:3420},
+	//{name:'Schmeichel---LEIGKP',price:5,points:131,minutes:3330},
+	//{name:'Pope---NEWGKP',price:5,points:130,minutes:3240},
+	//{name:'Dubravka---NEWGKP',price:4.5,points:96,minutes:2655},
+];
+
+const defenders = [
+	// My Cheap Selection
+	{name:'Guéhi---CRYDEF',price:4.5,points:123,minutes:3222},
+
+	{name:'Alexander-Arnold---LIVDEF',price:7.5,points:208,minutes:2853},
+	{name:'Chalobah---CHEDEF',price:5,points:99,minutes:1447},
+	{name:'James---CHEDEF',price:6,points:141,minutes:1863},
+	{name:'Robertson---LIVDEF',price:7,points:186,minutes:2537},
+	{name:'Cancelo---MCIDEF',price:7,points:201,minutes:3227},
+	{name:'Dias---MCIDEF',price:6,points:141,minutes:2401},
+	{name:'Gabriel---ARSDEF',price:5,points:146,minutes:3063},
+	{name:'Van Dijk---LIVDEF',price:6.5,points:183,minutes:3060},
+	//{name:'Matip---LIVDEF',price:6,points:170,minutes:2790},
+	//{name:'Cash---AVLDEF',price:5,points:147,minutes:3337},
+	//{name:'Cresswell---WHUDEF',price:5,points:115,minutes:2726},
+	//{name:'Mings---AVLDEF',price:4.5,points:118,minutes:3188},
+	//{name:'Jansson---BREDEF',price:4.5,points:122,minutes:3321},
+	//{name:'Cucurella---BHADEF',price:5,points:126,minutes:3089},
+	//{name:'Mitchell---CRYDEF',price:4.5,points:109,minutes:3101},
+	//{name:'Targett---NEWDEF',price:5,points:101,minutes:2871},
+	//{name:'Walker-Peters---SOUDEF',price:4.5,points:82,minutes:2630},
+	//{name:'Digne---AVLDEF',price:5,points:83,minutes:2440},
+	//{name:'Tarkowski---EVEDEF',price:4.5,points:83,minutes:3106},
+	//{name:'Thiago Silva---CHEDEF',price:5.5,points:130,minutes:2649},
+	//{name:'Bednarek---SOUDEF',price:4.5,points:94,minutes:2629},
+	//{name:'Canós---BREDEF',price:5,points:81,minutes:2077},
+	//{name:'Pinnock---BREDEF',price:4.5,points:90,minutes:2694},
+	//{name:'Dawson---WHUDEF',price:5,points:90,minutes:2752},
+	//{name:'Dallas---LEEDEF',price:5,points:80,minutes:2920},
+	//{name:'Salisu---SOUDEF',price:4.5,points:58,minutes:2971},
+	//{name:'Reguilón---TOTDEF',price:4.5,points:104,minutes:1914},
+	//{name:'Alonso---CHEDEF',price:5.5,points:128,minutes:2164},
+	//{name:'Laporte---MCIDEF',price:6,points:160,minutes:2830},
+	//{name:'Emerson Royal---TOTDEF',price:5,points:102,minutes:2282},
+];
+
+const midfielders = [
+	// My Cheap Selection
+	{name:'Gray---EVEMID',price:5.5,points:106,minutes:2336},
+
+	{name:'Benrahma---WHUMID',price:6,points:138,minutes:2162},
+	{name:'Kulusevski---TOTMID',price:8,points:99,minutes:1259},
+	//{name:'Barnes---LEIMID',price:7,points:137,minutes:2095}, // Injured
+	{name:'Maddison---LEIMID',price:8,points:181,minutes:2454},
+	{name:'Salah---LIVMID',price:13,points:265,minutes:2758},
+	{name:'Díaz---LIVMID',price:8,points:64,minutes:957},
+	{name:'Mount---CHEMID',price:8,points:169,minutes:2358},
+	{name:'Bowen---WHUMID',price:8.5,points:206,minutes:2987},
+	//{name:'Gross---BHAMID',price:5.5,points:88,minutes:2033},
+	{name:'Zaha---CRYMID',price:7,points:150,minutes:2759},
+	//{name:'Trossard---BHAMID',price:6.5,points:141,minutes:2803},
+	//{name:'Fornals---WHUMID',price:5.5,points:117,minutes:2795},
+	{name:'Ward-Prowse---SOUMID',price:6.5,points:159,minutes:3215},
+	{name:'Saka---ARSMID',price:8,points:179,minutes:2978},
+	{name:'De Bruyne---MCIMID',price:12,points:196,minutes:2196},
+	{name:'Ødegaard---ARSMID',price:6.5,points:131,minutes:2782},
+	{name:'Son---TOTMID',price:12,points:258,minutes:3009},
+	//{name:'Tielemans---LEIMID',price:6.5,points:120,minutes:2629},
+	//{name:'McGinn---AVLMID',price:5.5,points:110,minutes:3090},
+	//{name:'Saint-Maximin---NEWMID',price:6.5,points:116,minutes:2804},
+	//{name:'Fernandes---MUNMID',price:10,points:151,minutes:3110},
+	//{name:'Grealish---MCIMID',price:7,points:86,minutes:1910},
+	{name:'Sterling---MCIMID',price:10,points:163,minutes:2121},
+	//{name:'Rodri---MCIMID',price:6,points:127,minutes:2884},
+	//{name:'Mahrez---MCIMID',price:8,points:135,minutes:1485},
+	//{name:'Gündogan---MCIMID',price:7.5,points:124,minutes:1851},
+	//{name:'Gallagher---CHEMID',price:6,points:140,minutes:2843},
+	//{name:'Foden---MCIMID',price:8,points:137,minutes:2125},
+	//{name:'Bernardo---MCIMID',price:7,points:155,minutes:2856},
+	//{name:'Harrison---LEEMID',price:6,points:117,minutes:2638},
+];
+
+const forwards = [
+	// My Cheap Selection
+	{name:'Gelhardt---LEEFWD',price:5.5,points:43,minutes:733},
+
+	{name:'Edouard---CRYFWD',price:5.5,points:87,minutes:1554},
+	{name:'Jesus---ARSFWD',price:8,points:120,minutes:1871},
+	{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
+	//{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
+	{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
+	{name:'Havertz---CHEFWD',price:8,points:112,minutes:1802},
+	//{name:'Wilson---NEWFWD',price:7.5,points:75,minutes:1386},
+	//{name:'Toney---BREFWD',price:7,points:139,minutes:2908},
+	//{name:'Mbeumo---BREFWD',price:6,points:119,minutes:2905},
+	//{name:'Maupay---BHAFWD',price:6.5,points:98,minutes:2269},
+	//{name:'Antonio---WHUFWD',price:7.5,points:140,minutes:2975},
+	//{name:'Calvert-Lewin---EVEFWD',price:8,points:64,minutes:1281},
+	{name:'Ronaldo---MUNFWD',price:10.5,points:159,minutes:2454},
+	//{name:'Werner---CHEFWD',price:8,points:62,minutes:1278},
+	//{name:'Watkins---AVLFWD',price:7.5,points:131,minutes:2950},
+	//{name:'Jiménez---WOLFWD',price:7,points:101,minutes:2630},
+	{name:'Kane---TOTFWD',price:11.5,points:192,minutes:3231},
+	{name:'Vardy---LEIFWD',price:9.5,points:133,minutes:1801},
+	//{name:'Adams---SOUFWD',price:6.5,points:103,minutes:2034},
+	//{name:'A.Armstrong---SOUFWD',price:5.5,points:57,minutes:1409},
+	//{name:'Richarlison---TOTFWD',price:8.5,points:125,minutes:2522},
+	//{name:'Nketiah---ARSFWD',price:7,points:55,minutes:823},
+	//{name:'Daka---LEIFWD',price:6,points:70,minutes:1152},
+	//{name:'Iheanacho---LEIFWD',price:6.5,points:80,minutes:1253},
+	//{name:'Mateta---CRYFWD',price:5.5,points:61,minutes:1138},
+	//{name:'Wood---NEWFWD',price:6,points:91,minutes:2694},
+	//{name:'Welbeck---BHAFWD',price:6.5,points:89,minutes:1469},
+	//{name:'Benteke---CRYFWD',price:5.5,points:58,minutes:1132},
+	//{name:'Broja---CHEFWD',price:5.5,points:92,minutes:1969},
+];
+
+/* 
+11 = 20%
+12 = 15%
+13 = 10%
+14 = 5%
+15 = 0%
+16 = -5%
+17 = -10%
+*/
+
+const averageFixtureDifficulty = 15;
+const fixtureDifficultyBoost = 5; // In %
+const fixtureDifficulty = {
+	'ARS': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 11))) / 100,
+	'AVL': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
+	'BOU': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 17))) / 100,
+	'BRE': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
+	'BHA': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 14))) / 100,
+	'CHE': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 12))) / 100,
+	'CRY': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 17))) / 100,
+	'EVE': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 12))) / 100,
+	'FUL': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 15))) / 100,
+	'LEE': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 12))) / 100,
+	'LEI': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 15))) / 100,
+	'LIV': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
+	'MCI': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 12))) / 100,
+	'MUN': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 15))) / 100,
+	'NEW': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 16))) / 100,
+	'NFO': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 16))) / 100,
+	'SOU': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 17))) / 100,
+	'TOT': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
+	'WHU': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 14))) / 100,
+	'WOL': (100 + (fixtureDifficultyBoost * (averageFixtureDifficulty - 13))) / 100,
+}
+
+function runPremierLeague() {
+	const goalkeeperCount = goalkeepers.length;
+	const defenderCount = defenders.length;
+	const midfielderCount = midfielders.length;
+	const forwardCount = forwards.length;
+	let goalkeeper1Index = 0;
+	let goalkeeper2Index = 0;
+	let defender1Index = 0;
+	let defender2Index = 0;
+	let defender3Index = 0;
+	let defender4Index = 0;
+	let defender5Index = 0;
+	let midfielder1Index = 0;
+	let midfielder2Index = 0;
+	let midfielder3Index = 0;
+	let midfielder4Index = 0;
+	let midfielder5Index = 0;
+	let forward1Index = 0;
+	let forward2Index = 0;
+	let forward3Index = 0;
+
+	let bestTeam = '';
+	let bestTotalPointsPerFullSeason = 0;
+	let bestTeamPrice = 0;
+	const timer = performance.now();
+
+	// Loop over the goalkeepers
+	for (goalkeeper1Index = 1; goalkeeper1Index < goalkeeperCount; goalkeeper1Index++) {
+		const teamWorker = new Worker("./scripts/team.js");
+
+		teamWorker.postMessage({
+			goalkeepers,
+			defenders,
+			midfielders,
+			forwards,
+			fixtureDifficulty,
+			goalkeeper1Index
+		});
+
+		teamWorker.onmessage = (e) => {
+			const { bestTeam, bestTeamPrice, bestTotalPoints, count } = e.data;
+
+			teamWorker.terminate();
+
+			console.log('Total Time', `${Math.floor((performance.now() - timer) / 1000)}s`);
+			console.log('Best Team', bestTeam);
+			console.log('Best Team Price', bestTeamPrice);
+			console.log('Best Team Total Points', bestTotalPoints);
+			console.log('Unique Team Count', count);
+		}
+	}
+
+	/*
+		Best
+		
+		Best Team:
+			Raya---BREGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Maddison---LEIMID
+			Salah---LIVMID
+			Gray---EVEMID
+			Edouard---CRYFWD
+			Vardy---LEIFWD
+			Gelhardt---LEEFWD
+
+		Best Team Price 100
+		Best Team Total Points Per Full Season 3623.699371782082
+	*/
+
+	/*
+		Haaland scores 350 points
+		
+		Best Team:
+			Sá---WOLGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Maddison---LEIMID
+			Gray---EVEMID
+			Diogo Jota---LIVFWD
+			Haaland---MCIFWD
+			Gelhardt---LEEFWD
+
+		Best Team Price 100
+		Best Team Total Points Per Full Season 3701.611719442064
+	*/
+
+	/*
+		Best Without Vardy
+		
+		Best Team:
+			Ederson---MCIGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Maddison---LEIMID
+			Salah---LIVMID
+			Gray---EVEMID
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+			Gelhardt---LEEFWD
+
+		Best Team Price 99.5
+		Best Team Total Points Per Full Season 3599.260147519829
+	*/
+
+	/*
+		Best Without Vardy and without cheapest MID and FWD...
+
+		Best Team:
+			Raya---BREGKP
+			Guaita---CRYGKP
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Guéhi---CRYDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Maddison---LEIMID
+			Salah---LIVMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+		
+		Best Team Price 100
+		Best Team Total Points Per Full Season 3658.946046875882
+	*/
+
+	/*
+		Best with fixture difficulty boost of 5%
+
+		Best Team:
+			Alisson---LIVGKP
+			Guaita---CRYGKP
+			Guéhi---CRYDEF
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Alexander-Arnold---LIVDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Mount---CHEMID
+			De Bruyne---MCIMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+
+		Best Team Price 100
+		Best Team Total Points 523.0972501277588
+	*/
+
+	/*
+		Best Team:
+			Alisson---LIVGKP
+			Guaita---CRYGKP
+			Alexander-Arnold---LIVDEF
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Dias---MCIDEF
+			Gray---EVEMID
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Mount---CHEMID
+			De Bruyne---MCIMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+		Best Team Price 100
+		Best Team Total Points 532.0820595732876
+	*/
+
+	/*
+		Best Team:
+			Alisson---LIVGKP
+			Ward---LEIGKP
+			Alexander-Arnold---LIVDEF
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Gabriel---ARSDEF
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Barnes---LEIMID
+			Mount---CHEMID
+			De Bruyne---MCIMID
+			Gelhardt---LEEFWD
+			Edouard---CRYFWD
+			Jesus---ARSFWD
+		Best Team Price 100
+		Best Team Total Points 530.881179743729
+	*/
+}
