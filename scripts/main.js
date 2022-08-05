@@ -1228,7 +1228,7 @@ const forwards = [
 	{name:'Jesus---ARSFWD',price:8,points:120,minutes:1871},
 	{name:'Firmino---LIVFWD',price:8,points:62,minutes:980},
 	//{name:'Diogo Jota---LIVFWD',price:9,points:175,minutes:2357},
-	{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
+	//{name:'Ings---AVLFWD',price:7,points:106,minutes:1891},
 	{name:'Havertz---CHEFWD',price:8,points:112,minutes:1802},
 	//{name:'Wilson---NEWFWD',price:7.5,points:75,minutes:1386},
 	//{name:'Toney---BREFWD',price:7,points:139,minutes:2908},
@@ -1502,5 +1502,26 @@ function runPremierLeague() {
 			Jesus---ARSFWD
 		Best Team Price 100
 		Best Team Total Points 530.881179743729
+	*/
+
+	/*
+		Best Team:
+			Alisson---LIVGKP
+			Ward---LEIGKP
+			Alexander-Arnold---LIVDEF
+			Chalobah---CHEDEF
+			James---CHEDEF
+			Robertson---LIVDEF
+			Gabriel---ARSDEF
+			Gray---EVEMID
+			Benrahma---WHUMID
+			Kulusevski---TOTMID
+			Mount---CHEMID
+			De Bruyne---MCIMID
+			Gelhardt---LEEFWD
+			Jesus---ARSFWD
+			Ings---AVLFWD
+		Best Team Price 100
+		Best Team Total Points 530.0098992540582
 	*/
 }
